@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "title": "Midnight Rose",
+    "brand": "Luxe Parfums",
+    "categoryId": 1,
+    "price": 89.99,
+    "stock": 15,
+    "images": ["/images/midnight-rose.jpg"],
+    "description": "A captivating blend of dark roses and mysterious spices",
+    "specs": {
+      "topNotes": ["Bergamot", "Pink Pepper"],
+      "heartNotes": ["Rose", "Jasmine"],
+      "baseNotes": ["Sandalwood", "Musk"],
+      "sizeMl": 50,
+      "concentration": "Eau de Parfum"
+    },
+    "rating": { "average": 4.5, "count": 127 },
+    "popularity": 95,
+    "createdAt": "2024-01-15"
+  },
+  {
+    "id": 2,
+    "title": "Ocean Breeze",
+    "brand": "Aqua Scents",
+    "categoryId": 3,
+    "price": 65.99,
+    "stock": 23,
+    "images": ["/images/ocean-breeze.jpg"],
+    "description": "Fresh marine notes with a hint of sea salt",
+    "specs": {
+      "topNotes": ["Sea Salt", "Lemon"],
+      "heartNotes": ["Marine Notes", "Lily"],
+      "baseNotes": ["Driftwood", "Ambergris"],
+      "sizeMl": 75,
+      "concentration": "Eau de Toilette"
+    },
+    "rating": { "average": 4.2, "count": 89 },
+    "popularity": 78,
+    "createdAt": "2024-02-10"
+  },
+  {
+    "id": 3,
+    "title": "Vanilla Dreams",
+    "brand": "Sweet Essence",
+    "categoryId": 5,
+    "price": 75.50,
+    "stock": 8,
+    "images": ["/images/vanilla-dreams.jpg"],
+    "description": "Warm vanilla with caramel and honey undertones",
+    "specs": {
+      "topNotes": ["Honey", "Orange Blossom"],
+      "heartNotes": ["Vanilla", "Caramel"],
+      "baseNotes": ["Tonka Bean", "Sandalwood"],
+      "sizeMl": 50,
+      "concentration": "Eau de Parfum"
+    },
+    "rating": { "average": 4.7, "count": 203 },
+    "popularity": 92,
+    "createdAt": "2024-01-20"
+  },
+  {
+    "id": 4,
+    "title": "Mystic Oud",
+    "brand": "Arabian Nights",
+    "categoryId": 4,
+    "price": 120.00,
+    "stock": 5,
+    "images": ["/images/mystic-oud.jpg"],
+    "description": "Rich oud with exotic spices and amber",
+    "specs": {
+      "topNotes": ["Saffron", "Cardamom"],
+      "heartNotes": ["Oud", "Rose"],
+      "baseNotes": ["Amber", "Patchouli"],
+      "sizeMl": 30,
+      "concentration": "Parfum"
+    },
+    "rating": { "average": 4.8, "count": 156 },
+    "popularity": 88,
+    "createdAt": "2024-03-05"
+  },
+  {
+    "id": 5,
+    "title": "Cedar Forest",
+    "brand": "Nature's Essence",
+    "categoryId": 2,
+    "price": 95.00,
+    "stock": 12,
+    "images": ["/images/cedar-forest.jpg"],
+    "description": "Deep woody scent with cedar and pine notes",
+    "specs": {
+      "topNotes": ["Pine", "Juniper"],
+      "heartNotes": ["Cedar", "Cypress"],
+      "baseNotes": ["Vetiver", "Moss"],
+      "sizeMl": 100,
+      "concentration": "Eau de Parfum"
+    },
+    "rating": { "average": 4.3, "count": 74 },
+    "popularity": 71,
+    "createdAt": "2024-02-28"
+  }
+]

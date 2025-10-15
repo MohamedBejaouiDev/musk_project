@@ -1,0 +1,8 @@
+[
+  { "id": 1, "name": "Floral", "slug": "floral" },
+  { "id": 2, "name": "Woody", "slug": "woody" },
+  { "id": 3, "name": "Fresh", "slug": "fresh" },
+  { "id": 4, "name": "Oriental", "slug": "oriental" },
+  { "id": 5, "name": "Gourmand", "slug": "gourmand" },
+  { "id": 6, "name": "Citrus", "slug": "citrus" }
+]
