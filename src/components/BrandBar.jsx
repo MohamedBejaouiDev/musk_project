@@ -40,7 +40,7 @@ export const BrandBar = () => {
                 key={`brand1-${index}`} 
                 className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 flex-shrink-0"
               >
-                <img src={logo} alt="Brand" className="h-24 w-auto object-contain" />
+                <img src={logo} alt="Brand" className="h-16 w-auto object-contain" />
               </div>
             ))}
           </motion.div>
@@ -62,7 +62,7 @@ export const BrandBar = () => {
                 key={`brand2-${index}`} 
                 className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 flex-shrink-0"
               >
-                <img src={logo} alt="Brand" className="h-24 w-auto object-contain" />
+                <img src={logo} alt="Brand" className="h-16 w-auto object-contain" />
               </div>
             ))}
           </motion.div>

@@ -1,102 +1,442 @@
 [
   {
     "id": 1,
-    "title": "Midnight Rose",
-    "brand": "Luxe Parfums",
-    "categoryId": 1,
-    "price": 89.99,
-    "stock": 15,
-    "images": ["/images/midnight-rose.jpg"],
-    "description": "A captivating blend of dark roses and mysterious spices",
+    "title": "Sauvage",
+    "brand": "Dior",
+    "categoryId": 3,
+    "price": 135.00,
+    "stock": 25,
+    "images": [
+      "https://images.unsplash.com/photo-1541643600914-78b084683601?w=500"
+    ],
+    "description": "A radically fresh composition with Calabrian bergamot and Ambroxan",
     "specs": {
-      "topNotes": ["Bergamot", "Pink Pepper"],
-      "heartNotes": ["Rose", "Jasmine"],
-      "baseNotes": ["Sandalwood", "Musk"],
-      "sizeMl": 50,
-      "concentration": "Eau de Parfum"
+      "topNotes": ["Calabrian Bergamot", "Pepper"],
+      "heartNotes": ["Sichuan Pepper", "Lavender", "Pink Pepper"],
+      "baseNotes": ["Ambroxan", "Cedar", "Labdanum"],
+      "sizeMl": 100,
+      "concentration": "Eau de Toilette"
     },
-    "rating": { "average": 4.5, "count": 127 },
-    "popularity": 95,
+    "rating": { "average": 4.8, "count": 2847 },
+    "popularity": 98,
     "createdAt": "2024-01-15"
   },
   {
     "id": 2,
-    "title": "Ocean Breeze",
-    "brand": "Aqua Scents",
-    "categoryId": 3,
-    "price": 65.99,
-    "stock": 23,
-    "images": ["/images/ocean-breeze.jpg"],
-    "description": "Fresh marine notes with a hint of sea salt",
+    "title": "Bleu de Chanel",
+    "brand": "Chanel",
+    "categoryId": 2,
+    "price": 145.00,
+    "stock": 18,
+    "images": [
+      "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=500"
+    ],
+    "description": "An aromatic-woody fragrance that embodies freedom and determination",
     "specs": {
-      "topNotes": ["Sea Salt", "Lemon"],
-      "heartNotes": ["Marine Notes", "Lily"],
-      "baseNotes": ["Driftwood", "Ambergris"],
-      "sizeMl": 75,
-      "concentration": "Eau de Toilette"
+      "topNotes": ["Grapefruit", "Lemon", "Mint"],
+      "heartNotes": ["Ginger", "Nutmeg", "Jasmine"],
+      "baseNotes": ["Incense", "Vetiver", "Cedar"],
+      "sizeMl": 100,
+      "concentration": "Eau de Parfum"
     },
-    "rating": { "average": 4.2, "count": 89 },
-    "popularity": 78,
+    "rating": { "average": 4.7, "count": 3156 },
+    "popularity": 97,
     "createdAt": "2024-02-10"
   },
   {
     "id": 3,
-    "title": "Vanilla Dreams",
-    "brand": "Sweet Essence",
+    "title": "Black Opium",
+    "brand": "Yves Saint Laurent",
     "categoryId": 5,
-    "price": 75.50,
-    "stock": 8,
-    "images": ["/images/vanilla-dreams.jpg"],
-    "description": "Warm vanilla with caramel and honey undertones",
+    "price": 128.00,
+    "stock": 22,
+    "images": [
+      "https://images.unsplash.com/photo-1588405748880-12d1d2a59d75?w=500"
+    ],
+    "description": "A seductive gourmand fragrance with coffee and vanilla",
     "specs": {
-      "topNotes": ["Honey", "Orange Blossom"],
-      "heartNotes": ["Vanilla", "Caramel"],
-      "baseNotes": ["Tonka Bean", "Sandalwood"],
-      "sizeMl": 50,
+      "topNotes": ["Pink Pepper", "Orange Blossom", "Pear"],
+      "heartNotes": ["Coffee", "Jasmine", "Bitter Almond"],
+      "baseNotes": ["Vanilla", "Patchouli", "Cedar"],
+      "sizeMl": 90,
       "concentration": "Eau de Parfum"
     },
-    "rating": { "average": 4.7, "count": 203 },
-    "popularity": 92,
+    "rating": { "average": 4.6, "count": 2934 },
+    "popularity": 95,
     "createdAt": "2024-01-20"
   },
   {
     "id": 4,
-    "title": "Mystic Oud",
-    "brand": "Arabian Nights",
+    "title": "Oud Wood",
+    "brand": "Tom Ford",
     "categoryId": 4,
-    "price": 120.00,
-    "stock": 5,
-    "images": ["/images/mystic-oud.jpg"],
-    "description": "Rich oud with exotic spices and amber",
+    "price": 285.00,
+    "stock": 8,
+    "images": [
+      "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=500"
+    ],
+    "description": "Rare oud wood with exotic spices and sensual amber",
     "specs": {
-      "topNotes": ["Saffron", "Cardamom"],
-      "heartNotes": ["Oud", "Rose"],
-      "baseNotes": ["Amber", "Patchouli"],
-      "sizeMl": 30,
-      "concentration": "Parfum"
+      "topNotes": ["Rosewood", "Cardamom", "Chinese Pepper"],
+      "heartNotes": ["Oud", "Sandalwood", "Vetiver"],
+      "baseNotes": ["Tonka Bean", "Vanilla", "Amber"],
+      "sizeMl": 50,
+      "concentration": "Eau de Parfum"
     },
-    "rating": { "average": 4.8, "count": 156 },
-    "popularity": 88,
+    "rating": { "average": 4.9, "count": 1876 },
+    "popularity": 92,
     "createdAt": "2024-03-05"
   },
   {
     "id": 5,
-    "title": "Cedar Forest",
-    "brand": "Nature's Essence",
-    "categoryId": 2,
-    "price": 95.00,
-    "stock": 12,
-    "images": ["/images/cedar-forest.jpg"],
-    "description": "Deep woody scent with cedar and pine notes",
+    "title": "La Vie Est Belle",
+    "brand": "Lancôme",
+    "categoryId": 1,
+    "price": 132.00,
+    "stock": 30,
+    "images": [
+      "https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=500"
+    ],
+    "description": "A sweet floral gourmand with iris, patchouli and praline",
     "specs": {
-      "topNotes": ["Pine", "Juniper"],
-      "heartNotes": ["Cedar", "Cypress"],
-      "baseNotes": ["Vetiver", "Moss"],
+      "topNotes": ["Black Currant", "Pear"],
+      "heartNotes": ["Iris", "Jasmine", "Orange Blossom"],
+      "baseNotes": ["Praline", "Vanilla", "Patchouli"],
       "sizeMl": 100,
       "concentration": "Eau de Parfum"
     },
-    "rating": { "average": 4.3, "count": 74 },
-    "popularity": 71,
+    "rating": { "average": 4.5, "count": 2654 },
+    "popularity": 94,
     "createdAt": "2024-02-28"
+  },
+  {
+    "id": 6,
+    "title": "Acqua di Gio",
+    "brand": "Giorgio Armani",
+    "categoryId": 3,
+    "price": 118.00,
+    "stock": 35,
+    "images": [
+      "https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=500"
+    ],
+    "description": "A fresh aquatic fragrance inspired by the Mediterranean sea",
+    "specs": {
+      "topNotes": ["Lime", "Lemon", "Bergamot"],
+      "heartNotes": ["Jasmine", "Calone", "Peach"],
+      "baseNotes": ["Cedar", "Musk", "Amber"],
+      "sizeMl": 100,
+      "concentration": "Eau de Toilette"
+    },
+    "rating": { "average": 4.6, "count": 3421 },
+    "popularity": 96,
+    "createdAt": "2024-01-10"
+  },
+  {
+    "id": 7,
+    "title": "Coco Mademoiselle",
+    "brand": "Chanel",
+    "categoryId": 1,
+    "price": 155.00,
+    "stock": 20,
+    "images": [
+      "https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=500"
+    ],
+    "description": "A fresh oriental fragrance with notes of orange and patchouli",
+    "specs": {
+      "topNotes": ["Orange", "Mandarin", "Bergamot"],
+      "heartNotes": ["Jasmine", "Rose", "Ylang-Ylang"],
+      "baseNotes": ["Patchouli", "Vetiver", "Vanilla"],
+      "sizeMl": 100,
+      "concentration": "Eau de Parfum"
+    },
+    "rating": { "average": 4.8, "count": 4123 },
+    "popularity": 99,
+    "createdAt": "2024-02-15"
+  },
+  {
+    "id": 8,
+    "title": "Aventus",
+    "brand": "Creed",
+    "categoryId": 3,
+    "price": 445.00,
+    "stock": 12,
+    "images": [
+      "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=500"
+    ],
+    "description": "A fruity chypre fragrance celebrating strength and success",
+    "specs": {
+      "topNotes": ["Pineapple", "Blackcurrant", "Apple"],
+      "heartNotes": ["Birch", "Patchouli", "Jasmine"],
+      "baseNotes": ["Musk", "Oak Moss", "Ambergris"],
+      "sizeMl": 100,
+      "concentration": "Eau de Parfum"
+    },
+    "rating": { "average": 4.9, "count": 5234 },
+    "popularity": 100,
+    "createdAt": "2024-03-01"
+  },
+  {
+    "id": 9,
+    "title": "Good Girl",
+    "brand": "Carolina Herrera",
+    "categoryId": 5,
+    "price": 142.00,
+    "stock": 28,
+    "images": [
+      "https://images.unsplash.com/photo-1528821128474-27f963b062bf?w=500"
+    ],
+    "description": "A bold oriental floral with tuberose and tonka bean",
+    "specs": {
+      "topNotes": ["Almond", "Coffee", "Lemon"],
+      "heartNotes": ["Tuberose", "Jasmine", "Orris"],
+      "baseNotes": ["Tonka Bean", "Cacao", "Sandalwood"],
+      "sizeMl": 80,
+      "concentration": "Eau de Parfum"
+    },
+    "rating": { "average": 4.7, "count": 2876 },
+    "popularity": 93,
+    "createdAt": "2024-01-25"
+  },
+  {
+    "id": 10,
+    "title": "1 Million",
+    "brand": "Paco Rabanne",
+    "categoryId": 4,
+    "price": 98.00,
+    "stock": 40,
+    "images": [
+      "https://images.unsplash.com/photo-1541643600914-78b084683601?w=500"
+    ],
+    "description": "A spicy leather fragrance with cinnamon and rose",
+    "specs": {
+      "topNotes": ["Grapefruit", "Mint", "Blood Mandarin"],
+      "heartNotes": ["Cinnamon", "Rose", "Spice Notes"],
+      "baseNotes": ["Leather", "Amber", "Patchouli"],
+      "sizeMl": 100,
+      "concentration": "Eau de Toilette"
+    },
+    "rating": { "average": 4.4, "count": 3567 },
+    "popularity": 91,
+    "createdAt": "2024-02-20"
+  },
+  {
+    "id": 11,
+    "title": "Flowerbomb",
+    "brand": "Viktor & Rolf",
+    "categoryId": 1,
+    "price": 165.00,
+    "stock": 15,
+    "images": [
+      "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=500"
+    ],
+    "description": "An explosive floral bouquet with jasmine and rose",
+    "specs": {
+      "topNotes": ["Tea", "Bergamot", "Osmanthus"],
+      "heartNotes": ["Jasmine", "Rose", "Orchid"],
+      "baseNotes": ["Patchouli", "Musk", "Amber"],
+      "sizeMl": 100,
+      "concentration": "Eau de Parfum"
+    },
+    "rating": { "average": 4.6, "count": 2987 },
+    "popularity": 94,
+    "createdAt": "2024-01-18"
+  },
+  {
+    "id": 12,
+    "title": "Tobacco Vanille",
+    "brand": "Tom Ford",
+    "categoryId": 4,
+    "price": 325.00,
+    "stock": 10,
+    "images": [
+      "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=500"
+    ],
+    "description": "A warm spicy fragrance with tobacco leaf and vanilla",
+    "specs": {
+      "topNotes": ["Tobacco Leaf", "Spicy Notes", "Ginger"],
+      "heartNotes": ["Tobacco Blossom", "Cacao", "Tonka Bean"],
+      "baseNotes": ["Vanilla", "Dried Fruits", "Woody Notes"],
+      "sizeMl": 50,
+      "concentration": "Eau de Parfum"
+    },
+    "rating": { "average": 4.8, "count": 1654 },
+    "popularity": 89,
+    "createdAt": "2024-03-10"
+  },
+  {
+    "id": 13,
+    "title": "Light Blue",
+    "brand": "Dolce & Gabbana",
+    "categoryId": 3,
+    "price": 112.00,
+    "stock": 32,
+    "images": [
+      "https://images.unsplash.com/photo-1588405748880-12d1d2a59d75?w=500"
+    ],
+    "description": "A fresh fruity floral with Sicilian lemon and apple",
+    "specs": {
+      "topNotes": ["Sicilian Lemon", "Apple", "Cedar"],
+      "heartNotes": ["Jasmine", "Bamboo", "White Rose"],
+      "baseNotes": ["Cedar", "Musk", "Amber"],
+      "sizeMl": 100,
+      "concentration": "Eau de Toilette"
+    },
+    "rating": { "average": 4.5, "count": 4234 },
+    "popularity": 95,
+    "createdAt": "2024-02-05"
+  },
+  {
+    "id": 14,
+    "title": "Baccarat Rouge 540",
+    "brand": "Maison Francis Kurkdjian",
+    "categoryId": 4,
+    "price": 325.00,
+    "stock": 8,
+    "images": [
+      "https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=500"
+    ],
+    "description": "A luminous woody floral with jasmine and saffron",
+    "specs": {
+      "topNotes": ["Saffron", "Jasmine"],
+      "heartNotes": ["Amberwood", "Ambergris"],
+      "baseNotes": ["Fir Resin", "Cedar"],
+      "sizeMl": 70,
+      "concentration": "Extrait de Parfum"
+    },
+    "rating": { "average": 4.9, "count": 2134 },
+    "popularity": 97,
+    "createdAt": "2024-03-15"
+  },
+  {
+    "id": 15,
+    "title": "Guilty",
+    "brand": "Gucci",
+    "categoryId": 1,
+    "price": 125.00,
+    "stock": 25,
+    "images": [
+      "https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=500"
+    ],
+    "description": "A warm floral oriental with lilac and patchouli",
+    "specs": {
+      "topNotes": ["Pink Pepper", "Mandarin", "Bergamot"],
+      "heartNotes": ["Lilac", "Geranium", "Peach"],
+      "baseNotes": ["Patchouli", "Amber", "Vanilla"],
+      "sizeMl": 90,
+      "concentration": "Eau de Parfum"
+    },
+    "rating": { "average": 4.4, "count": 2765 },
+    "popularity": 90,
+    "createdAt": "2024-01-30"
+  },
+  {
+    "id": 16,
+    "title": "Libre",
+    "brand": "Yves Saint Laurent",
+    "categoryId": 1,
+    "price": 138.00,
+    "stock": 22,
+    "images": [
+      "https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=500"
+    ],
+    "description": "A bold floral lavender with orange blossom and musk",
+    "specs": {
+      "topNotes": ["Lavender", "Mandarin", "Black Currant"],
+      "heartNotes": ["Orange Blossom", "Jasmine", "Lavender"],
+      "baseNotes": ["Musk", "Vanilla", "Cedar"],
+      "sizeMl": 90,
+      "concentration": "Eau de Parfum"
+    },
+    "rating": { "average": 4.7, "count": 3098 },
+    "popularity": 96,
+    "createdAt": "2024-02-12"
+  },
+  {
+    "id": 17,
+    "title": "Invictus",
+    "brand": "Paco Rabanne",
+    "categoryId": 3,
+    "price": 105.00,
+    "stock": 38,
+    "images": [
+      "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=500"
+    ],
+    "description": "A fresh woody aquatic with grapefruit and guaiac wood",
+    "specs": {
+      "topNotes": ["Grapefruit", "Marine Notes", "Mandarin"],
+      "heartNotes": ["Bay Leaf", "Jasmine", "Hedione"],
+      "baseNotes": ["Guaiac Wood", "Patchouli", "Ambergris"],
+      "sizeMl": 100,
+      "concentration": "Eau de Toilette"
+    },
+    "rating": { "average": 4.5, "count": 3876 },
+    "popularity": 93,
+    "createdAt": "2024-01-22"
+  },
+  {
+    "id": 18,
+    "title": "Sì",
+    "brand": "Giorgio Armani",
+    "categoryId": 1,
+    "price": 135.00,
+    "stock": 20,
+    "images": [
+      "https://images.unsplash.com/photo-1528821128474-27f963b062bf?w=500"
+    ],
+    "description": "A chypre fragrance with blackcurrant nectar and vanilla",
+    "specs": {
+      "topNotes": ["Blackcurrant Nectar", "Mandarin"],
+      "heartNotes": ["Rose", "Freesia", "May Rose"],
+      "baseNotes": ["Vanilla", "Patchouli", "Ambroxan"],
+      "sizeMl": 100,
+      "concentration": "Eau de Parfum"
+    },
+    "rating": { "average": 4.6, "count": 2543 },
+    "popularity": 92,
+    "createdAt": "2024-02-18"
+  },
+  {
+    "id": 19,
+    "title": "Versace Eros",
+    "brand": "Versace",
+    "categoryId": 3,
+    "price": 115.00,
+    "stock": 30,
+    "images": [
+      "https://images.unsplash.com/photo-1541643600914-78b084683601?w=500"
+    ],
+    "description": "A fresh oriental with mint, lemon and tonka bean",
+    "specs": {
+      "topNotes": ["Mint", "Lemon", "Green Apple"],
+      "heartNotes": ["Tonka Bean", "Geranium", "Ambroxan"],
+      "baseNotes": ["Vanilla", "Vetiver", "Oak Moss"],
+      "sizeMl": 100,
+      "concentration": "Eau de Toilette"
+    },
+    "rating": { "average": 4.5, "count": 4321 },
+    "popularity": 94,
+    "createdAt": "2024-01-12"
+  },
+  {
+    "id": 20,
+    "title": "Alien",
+    "brand": "Mugler",
+    "categoryId": 4,
+    "price": 128.00,
+    "stock": 18,
+    "images": [
+      "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=500"
+    ],
+    "description": "A mysterious woody floral with jasmine and cashmeran",
+    "specs": {
+      "topNotes": ["Jasmine"],
+      "heartNotes": ["Cashmeran", "Woody Notes"],
+      "baseNotes": ["Amber", "White Amber"],
+      "sizeMl": 60,
+      "concentration": "Eau de Parfum"
+    },
+    "rating": { "average": 4.6, "count": 2987 },
+    "popularity": 91,
+    "createdAt": "2024-03-08"
   }
 ]
