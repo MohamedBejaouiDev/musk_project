@@ -106,23 +106,27 @@ export const Header = () => {
             <div className="flex items-center gap-4 sm:gap-6">
               {/* Auth Buttons - Desktop */}
               <div className="hidden lg:flex items-center gap-3 mr-2">
-                <motion.button 
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-2 font-montserrat text-sm text-gray-700 hover:text-[#AF8D64] transition-colors"
-                >
-                  <LogIn size={16} />
-                  Sign In
-                </motion.button>
+                <Link to="/login">
+                  <motion.button 
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center gap-2 font-montserrat text-sm text-gray-700 hover:text-[#AF8D64] transition-colors"
+                  >
+                    <LogIn size={16} />
+                    Sign In
+                  </motion.button>
+                </Link>
                 <span className="text-gray-300">|</span>
-                <motion.button 
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-2 font-montserrat text-sm bg-[#AF8D64] text-white px-4 py-2 rounded-lg hover:bg-[#9a7a50] transition-colors"
-                >
-                  <UserPlus size={16} />
-                  Sign Up
-                </motion.button>
+                <Link to="/signup">
+                  <motion.button 
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center gap-2 font-montserrat text-sm bg-[#AF8D64] text-white px-4 py-2 rounded-lg hover:bg-[#9a7a50] transition-colors"
+                  >
+                    <UserPlus size={16} />
+                    Sign Up
+                  </motion.button>
+                </Link>
               </div>
 
               <motion.button 
@@ -237,22 +241,26 @@ export const Header = () => {
 
                   {/* Auth Buttons - Mobile */}
                   <div className="flex flex-col gap-4 mb-6">
-                    <motion.button 
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="flex items-center justify-center gap-2 font-montserrat font-semibold text-gray-700 border-2 border-gray-300 py-3 rounded-lg hover:border-[#AF8D64] hover:text-[#AF8D64] transition-colors"
-                    >
-                      <LogIn size={20} />
-                      Sign In
-                    </motion.button>
-                    <motion.button 
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="flex items-center justify-center gap-2 font-montserrat font-semibold bg-[#AF8D64] text-white py-3 rounded-lg hover:bg-[#9a7a50] transition-colors"
-                    >
-                      <UserPlus size={20} />
-                      Sign Up
-                    </motion.button>
+                    <Link to="/login" onClick={() => setIsOpen(false)}>
+                      <motion.button 
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full flex items-center justify-center gap-2 font-montserrat font-semibold text-gray-700 border-2 border-gray-300 py-3 rounded-lg hover:border-[#AF8D64] hover:text-[#AF8D64] transition-colors"
+                      >
+                        <LogIn size={20} />
+                        Sign In
+                      </motion.button>
+                    </Link>
+                    <Link to="/signup" onClick={() => setIsOpen(false)}>
+                      <motion.button 
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full flex items-center justify-center gap-2 font-montserrat font-semibold bg-[#AF8D64] text-white py-3 rounded-lg hover:bg-[#9a7a50] transition-colors"
+                      >
+                        <UserPlus size={20} />
+                        Sign Up
+                      </motion.button>
+                    </Link>
                   </div>
 
                   {/* Footer */}
