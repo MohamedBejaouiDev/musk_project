@@ -4,6 +4,7 @@ import { FeaturedProducts } from "../components/FeaturedProducts";
 import { BlogSection } from "../components/BlogSection";
 import { AboutUs } from "../components/AboutUs";
 import { GetInTouch } from "../components/GetInTouch";
+import { Link } from "react-router-dom";
 import productsData from "../data/products.json";
 import heroPic from "../assets/heroPic.png";
 
@@ -18,8 +19,8 @@ export const Home = () => {
         description="Discover the timeless craft behind every bottle. Our master perfumers blend the finest ingredients to create scents that tell your unique story. Each fragrance is a journey through carefully selected notes, designed to evoke emotions and memories that last a lifetime."
         image={heroPic}
         imagePosition="right"
-        buttonText="Learn More"
-        onButtonClick={() => console.log('Learn more clicked')}
+        buttonText="Explore Shop"
+        onButtonClick={() => window.location.href = '/shop'}
       />
       <FeaturedProducts products={productsData.slice(5, 10)} title="Best Sellers" />
       <BlogSection

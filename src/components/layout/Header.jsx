@@ -18,7 +18,7 @@ export const Header = () => {
 
   const navItems = [
     { path: '/', label: 'Home' },
-    { path: '/shop', label: 'Collections' },
+    { path: '/shop', label: 'Shop' },
     { path: '/bespoke', label: 'Bespoke' },
     { path: '/about', label: 'Heritage' },
     { path: '/contact', label: 'Consultation' }
