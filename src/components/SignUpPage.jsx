@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Eye, EyeOff, Lock, Mail, User, MapPin, Crown, Sparkles, Check } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, User, MapPin, Crown, Sparkles, Check, ArrowLeft } from 'lucide-react';
 
 export const SignUpPage = () => {
   const [formData, setFormData] = useState({
@@ -78,6 +78,21 @@ export const SignUpPage = () => {
           transition={{ duration: 0.8 }}
           className="max-w-2xl w-full space-y-8"
         >
+          {/* Back to Home */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <Link
+              to="/"
+              className="inline-flex items-center gap-2 font-montserrat text-gray-600 hover:text-[#AF8D64] transition-colors"
+            >
+              <ArrowLeft className="w-5 h-5" />
+              Back to Home
+            </Link>
+          </motion.div>
+
           {/* Header */}
           <div className="text-center">
             <motion.div
