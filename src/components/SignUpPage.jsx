@@ -41,7 +41,6 @@ export const SignUpPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Validate passwords match
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords don't match!");
       return;
@@ -49,11 +48,36 @@ export const SignUpPage = () => {
 
     setIsLoading(true);
     
-    // Simulate API call
     setTimeout(() => {
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      
+      if (users.find(u => u.email === formData.email)) {
+        alert('Email already registered!');
+        setIsLoading(false);
+        return;
+      }
+
+      const newUser = {
+        id: Date.now(),
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        password: formData.password,
+        address: formData.address,
+        city: formData.city,
+        postalCode: formData.postalCode,
+        country: formData.country,
+        createdAt: new Date().toISOString()
+      };
+
+      users.push(newUser);
+      localStorage.setItem('users', JSON.stringify(users));
+      localStorage.setItem('currentUser', JSON.stringify({ ...newUser, password: undefined }));
+      
+      alert('Account created successfully!');
       setIsLoading(false);
-      console.log('Sign up attempt:', formData);
-    }, 2000);
+      window.location.href = '/';
+    }, 1000);
   };
 
   const passwordRequirements = [

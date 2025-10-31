@@ -23,11 +23,20 @@ export const LoginPage = () => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate API call
     setTimeout(() => {
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const user = users.find(u => u.email === formData.email && u.password === formData.password);
+
+      if (user) {
+        localStorage.setItem('currentUser', JSON.stringify({ ...user, password: undefined }));
+        alert('Login successful!');
+        window.location.href = '/';
+      } else {
+        alert('Invalid email or password!');
+      }
+      
       setIsLoading(false);
-      console.log('Login attempt:', formData);
-    }, 2000);
+    }, 1000);
   };
 
   return (

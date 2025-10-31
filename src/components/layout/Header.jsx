@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Search, User, Menu, X, Heart, Phone, LogIn, UserPlus } from 'lucide-react';
+import { ShoppingCart, Search, User, Menu, X, Heart, Phone, LogIn, UserPlus, LogOut } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
@@ -7,14 +7,25 @@ export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeLink, setActiveLink] = useState('/');
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener('scroll', handleScroll);
+    
+    const user = JSON.parse(localStorage.getItem('currentUser') || 'null');
+    setCurrentUser(user);
+    
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('currentUser');
+    setCurrentUser(null);
+    window.location.href = '/';
+  };
 
   const navItems = [
     { path: '/', label: 'Home' },
@@ -106,27 +117,47 @@ export const Header = () => {
             <div className="flex items-center gap-4 sm:gap-6">
               {/* Auth Buttons - Desktop */}
               <div className="hidden lg:flex items-center gap-3 mr-2">
-                <Link to="/login">
-                  <motion.button 
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-2 font-montserrat text-sm text-gray-700 hover:text-[#AF8D64] transition-colors"
-                  >
-                    <LogIn size={16} />
-                    Sign In
-                  </motion.button>
-                </Link>
-                <span className="text-gray-300">|</span>
-                <Link to="/signup">
-                  <motion.button 
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-2 font-montserrat text-sm bg-[#AF8D64] text-white px-4 py-2 rounded-lg hover:bg-[#9a7a50] transition-colors"
-                  >
-                    <UserPlus size={16} />
-                    Sign Up
-                  </motion.button>
-                </Link>
+                {currentUser ? (
+                  <>
+                    <span className="font-montserrat text-sm text-gray-700">
+                      Hi, {currentUser.firstName}
+                    </span>
+                    <span className="text-gray-300">|</span>
+                    <motion.button 
+                      onClick={handleLogout}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex items-center gap-2 font-montserrat text-sm text-gray-700 hover:text-[#AF8D64] transition-colors"
+                    >
+                      <LogOut size={16} />
+                      Logout
+                    </motion.button>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/login">
+                      <motion.button 
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex items-center gap-2 font-montserrat text-sm text-gray-700 hover:text-[#AF8D64] transition-colors"
+                      >
+                        <LogIn size={16} />
+                        Sign In
+                      </motion.button>
+                    </Link>
+                    <span className="text-gray-300">|</span>
+                    <Link to="/signup">
+                      <motion.button 
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex items-center gap-2 font-montserrat text-sm bg-[#AF8D64] text-white px-4 py-2 rounded-lg hover:bg-[#9a7a50] transition-colors"
+                      >
+                        <UserPlus size={16} />
+                        Sign Up
+                      </motion.button>
+                    </Link>
+                  </>
+                )}
               </div>
 
               <motion.button 
@@ -241,26 +272,48 @@ export const Header = () => {
 
                   {/* Auth Buttons - Mobile */}
                   <div className="flex flex-col gap-4 mb-6">
-                    <Link to="/login" onClick={() => setIsOpen(false)}>
-                      <motion.button 
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="w-full flex items-center justify-center gap-2 font-montserrat font-semibold text-gray-700 border-2 border-gray-300 py-3 rounded-lg hover:border-[#AF8D64] hover:text-[#AF8D64] transition-colors"
-                      >
-                        <LogIn size={20} />
-                        Sign In
-                      </motion.button>
-                    </Link>
-                    <Link to="/signup" onClick={() => setIsOpen(false)}>
-                      <motion.button 
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="w-full flex items-center justify-center gap-2 font-montserrat font-semibold bg-[#AF8D64] text-white py-3 rounded-lg hover:bg-[#9a7a50] transition-colors"
-                      >
-                        <UserPlus size={20} />
-                        Sign Up
-                      </motion.button>
-                    </Link>
+                    {currentUser ? (
+                      <>
+                        <div className="text-center py-3 font-montserrat text-gray-700">
+                          Hi, {currentUser.firstName} {currentUser.lastName}
+                        </div>
+                        <motion.button 
+                          onClick={() => {
+                            handleLogout();
+                            setIsOpen(false);
+                          }}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="w-full flex items-center justify-center gap-2 font-montserrat font-semibold text-gray-700 border-2 border-gray-300 py-3 rounded-lg hover:border-[#AF8D64] hover:text-[#AF8D64] transition-colors"
+                        >
+                          <LogOut size={20} />
+                          Logout
+                        </motion.button>
+                      </>
+                    ) : (
+                      <>
+                        <Link to="/login" onClick={() => setIsOpen(false)}>
+                          <motion.button 
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="w-full flex items-center justify-center gap-2 font-montserrat font-semibold text-gray-700 border-2 border-gray-300 py-3 rounded-lg hover:border-[#AF8D64] hover:text-[#AF8D64] transition-colors"
+                          >
+                            <LogIn size={20} />
+                            Sign In
+                          </motion.button>
+                        </Link>
+                        <Link to="/signup" onClick={() => setIsOpen(false)}>
+                          <motion.button 
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="w-full flex items-center justify-center gap-2 font-montserrat font-semibold bg-[#AF8D64] text-white py-3 rounded-lg hover:bg-[#9a7a50] transition-colors"
+                          >
+                            <UserPlus size={20} />
+                            Sign Up
+                          </motion.button>
+                        </Link>
+                      </>
+                    )}
                   </div>
 
                   {/* Footer */}
