@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import productsData from '../data/products.json';
 import categoriesData from '../data/categories.json';
+import { useCart } from '../state/CartContext';
 
 export const ShopPage = () => {
   const [products, setProducts] = useState([]);
@@ -562,6 +563,13 @@ export const ShopPage = () => {
 const ProductCard = ({ product, index }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const { addItem } = useCart();
+
+  const handleAddToCart = (e) => {
+    e.preventDefault();
+    const rawProduct = productsData.find(p => p.id === product.id);
+    addItem({ ...product, stock: rawProduct?.stock || 0 });
+  };
 
   return (
     <motion.div
@@ -721,6 +729,7 @@ const ProductCard = ({ product, index }) => {
 
           {/* Add to Cart Button */}
           <motion.button
+            onClick={handleAddToCart}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             disabled={!product.inStock}

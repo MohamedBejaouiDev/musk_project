@@ -2,12 +2,14 @@ import { Link } from 'react-router-dom';
 import { ShoppingCart, Search, User, Menu, X, Heart, Phone, LogIn, UserPlus, LogOut } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { useCart } from '../../state/CartContext';
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeLink, setActiveLink] = useState('/');
   const [currentUser, setCurrentUser] = useState(null);
+  const { totalItems } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -177,20 +179,24 @@ export const Header = () => {
               </motion.button>
 
               {/* Cart with badge */}
-              <motion.button 
-                whileHover={{ scale: 1.1 }} 
-                transition={{ duration: 0.2 }}
-                className="relative text-gray-600 hover:text-[#AF8D64] transition-colors"
-              >
-                <ShoppingCart size={20} strokeWidth={1.5} />
-                <motion.span 
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="absolute -top-2 -right-2 bg-[#AF8D64] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-montserrat font-bold"
+              <Link to="/cart">
+                <motion.button 
+                  whileHover={{ scale: 1.1 }} 
+                  transition={{ duration: 0.2 }}
+                  className="relative text-gray-600 hover:text-[#AF8D64] transition-colors"
                 >
-                  0
-                </motion.span>
-              </motion.button>
+                  <ShoppingCart size={20} strokeWidth={1.5} />
+                  {totalItems > 0 && (
+                    <motion.span 
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      className="absolute -top-2 -right-2 bg-[#AF8D64] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-montserrat font-bold"
+                    >
+                      {totalItems}
+                    </motion.span>
+                  )}
+                </motion.button>
+              </Link>
 
               {/* Mobile menu button */}
               <motion.button 

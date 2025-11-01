@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import productsData from '../data/products.json';
 import categoriesData from '../data/categories.json';
+import { useCart } from '../state/CartContext';
 
 export const ProductDetailPage = () => {
   const { id } = useParams();
@@ -24,6 +25,12 @@ export const ProductDetailPage = () => {
   const [activeTab, setActiveTab] = useState('description');
   const [product, setProduct] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const { addItem } = useCart();
+
+  const handleAddToCart = () => {
+    const rawProduct = productsData.find(p => p.id === parseInt(id));
+    addItem({ ...product, stock: rawProduct?.stock || 0, quantity });
+  };
 
   useEffect(() => {
     const rawProduct = productsData.find(p => p.id === parseInt(id));
@@ -305,12 +312,18 @@ export const ProductDetailPage = () => {
 
             {/* Add to Cart */}
             <motion.button
+              onClick={handleAddToCart}
+              disabled={!product.inStock}
               whileHover={{ scale: 1.02, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full bg-gradient-to-r from-[#AF8D64] to-[#D4B78C] text-white py-5 px-8 rounded-2xl font-montserrat font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3"
+              className={`w-full py-5 px-8 rounded-2xl font-montserrat font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 ${
+                product.inStock
+                  ? 'bg-gradient-to-r from-[#AF8D64] to-[#D4B78C] text-white'
+                  : 'bg-gray-200 text-gray-500 cursor-not-allowed'
+              }`}
             >
               <ShoppingCart className="w-6 h-6" />
-              Add to Cart - ${(product.price * quantity).toFixed(2)}
+              {product.inStock ? `Add to Cart - $${(product.price * quantity).toFixed(2)}` : 'Out of Stock'}
             </motion.button>
 
             {/* Benefits */}

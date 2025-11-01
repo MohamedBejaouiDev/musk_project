@@ -6,6 +6,7 @@ import { LoginPage } from './components/LoginPage';
 import { SignUpPage } from './components/SignUpPage';
 import { ShopPage } from './components/ShopPage';
 import { ProductDetailPage } from './components/ProductDetailPage';
+import { CartPage } from './components/CartPage';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
             <Route index element={<Home />} />
             <Route path="shop" element={<ShopPage />} />
             <Route path="product/:id" element={<ProductDetailPage />} />
+            <Route path="cart" element={<CartPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

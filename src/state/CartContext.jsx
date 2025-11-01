@@ -8,18 +8,27 @@ const cartReducer = (state, action) => {
     case 'ADD_ITEM':
       const existingItem = state.items.find(item => item.id === action.payload.id);
       if (existingItem) {
+        const newQuantity = existingItem.quantity + (action.payload.quantity || 1);
+        if (newQuantity > action.payload.stock) {
+          alert(`Only ${action.payload.stock} items available in stock!`);
+          return state;
+        }
         return {
           ...state,
           items: state.items.map(item =>
             item.id === action.payload.id
-              ? { ...item, quantity: item.quantity + 1 }
+              ? { ...item, quantity: newQuantity }
               : item
           )
         };
       }
+      if (!action.payload.inStock || action.payload.stock < 1) {
+        alert('This item is out of stock!');
+        return state;
+      }
       return {
         ...state,
-        items: [...state.items, { ...action.payload, quantity: 1 }]
+        items: [...state.items, { ...action.payload, quantity: action.payload.quantity || 1 }]
       };
     
     case 'REMOVE_ITEM':
@@ -29,6 +38,17 @@ const cartReducer = (state, action) => {
       };
     
     case 'UPDATE_QUANTITY':
+      const itemToUpdate = state.items.find(item => item.id === action.payload.id);
+      if (action.payload.quantity > itemToUpdate.stock) {
+        alert(`Only ${itemToUpdate.stock} items available in stock!`);
+        return state;
+      }
+      if (action.payload.quantity < 1) {
+        return {
+          ...state,
+          items: state.items.filter(item => item.id !== action.payload.id)
+        };
+      }
       return {
         ...state,
         items: state.items.map(item =>
