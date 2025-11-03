@@ -1,5 +1,6 @@
 import { createContext, useContext, useReducer, useEffect } from 'react';
 import { storage } from '../services/storage';
+import { toastEmitter } from '../utils/toastEmitter';
 
 const CartContext = createContext();
 
@@ -10,7 +11,7 @@ const cartReducer = (state, action) => {
       if (existingItem) {
         const newQuantity = existingItem.quantity + (action.payload.quantity || 1);
         if (newQuantity > action.payload.stock) {
-          alert(`Only ${action.payload.stock} items available in stock!`);
+          toastEmitter.emit(`Only ${action.payload.stock} items available in stock!`, 'error');
           return state;
         }
         return {
@@ -23,7 +24,7 @@ const cartReducer = (state, action) => {
         };
       }
       if (!action.payload.inStock || action.payload.stock < 1) {
-        alert('This item is out of stock!');
+        toastEmitter.emit('This item is out of stock!', 'error');
         return state;
       }
       return {
@@ -40,7 +41,7 @@ const cartReducer = (state, action) => {
     case 'UPDATE_QUANTITY':
       const itemToUpdate = state.items.find(item => item.id === action.payload.id);
       if (action.payload.quantity > itemToUpdate.stock) {
-        alert(`Only ${itemToUpdate.stock} items available in stock!`);
+        toastEmitter.emit(`Only ${itemToUpdate.stock} items available in stock!`, 'error');
         return state;
       }
       if (action.payload.quantity < 1) {

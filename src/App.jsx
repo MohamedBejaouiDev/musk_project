@@ -7,10 +7,21 @@ import { SignUpPage } from './components/SignUpPage';
 import { ShopPage } from './components/ShopPage';
 import { ProductDetailPage } from './components/ProductDetailPage';
 import { CartPage } from './components/CartPage';
+import { Toast } from './components/Toast';
+import { useState, useEffect } from 'react';
+import { toastEmitter } from './utils/toastEmitter';
 
 export default function App() {
+  const [toast, setToast] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = toastEmitter.subscribe(setToast);
+    return unsubscribe;
+  }, []);
+
   return (
     <CartProvider>
+      {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
