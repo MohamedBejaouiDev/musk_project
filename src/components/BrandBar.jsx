@@ -14,7 +14,7 @@ export const BrandBar = () => {
   return (
     <div className="bg-white py-16 border-y border-gray-200 overflow-hidden">
       <div className="space-y-12">
-        {/* First Row - Moving Right */}
+      
         <div className="relative">
           <motion.div 
             className="flex gap-16"
@@ -27,7 +27,7 @@ export const BrandBar = () => {
           </motion.div>
         </div>
 
-        {/* Second Row - Moving Left */}
+       
         <div className="relative">
           <motion.div 
             className="flex gap-16"

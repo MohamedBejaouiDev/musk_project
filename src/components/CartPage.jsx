@@ -93,7 +93,7 @@ export const CartPage = () => {
               <div className="bg-gray-50 rounded-lg p-6">
                 <div className="flex justify-between items-center mb-2">
                   <span className="font-montserrat text-gray-700">Subtotal</span>
-                  <span className="font-montserrat font-bold text-gray-900">${totalPrice.toFixed(2)}</span>
+                  <span className="font-montserrat font-bold text-gray-900">DT {totalPrice.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center mb-2">
                   <span className="font-montserrat text-gray-700">Shipping</span>
@@ -102,7 +102,7 @@ export const CartPage = () => {
                 <div className="border-t border-gray-300 pt-2 mt-2">
                   <div className="flex justify-between items-center">
                     <span className="font-montserrat text-xl font-bold text-gray-900">Total</span>
-                    <span className="font-montserrat text-2xl font-bold text-[#AF8D64]">${totalPrice.toFixed(2)}</span>
+                    <span className="font-montserrat text-2xl font-bold text-[#AF8D64]">DT {totalPrice.toFixed(2)}</span>
                   </div>
                 </div>
               </div>
@@ -230,7 +230,7 @@ export const CartPage = () => {
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between">
                     <span className="font-montserrat text-gray-700">Subtotal</span>
-                    <span className="font-montserrat font-bold">${totalPrice.toFixed(2)}</span>
+                    <span className="font-montserrat font-bold">DT {totalPrice.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="font-montserrat text-gray-700">Shipping</span>

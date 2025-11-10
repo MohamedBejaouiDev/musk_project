@@ -1,8 +1,7 @@
-// Simulate API calls with local JSON data
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 export const fetchData = async (endpoint) => {
-  await delay(300); // Simulate network delay
+  await delay(300); 
   
   try {
     const response = await fetch(endpoint);

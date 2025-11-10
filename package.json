@@ -38,5 +38,18 @@
     "eslint-plugin-react-refresh": "^0.4.22",
     "globals": "^16.4.0",
     "vite": "^7.1.7"
-  }
+  },
+  "description": "A modern e-commerce platform for luxury perfumes built with React, Vite, and Tailwind CSS.",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MohamedBejaouiDev/musk_project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MohamedBejaouiDev/musk_project/issues"
+  },
+  "homepage": "https://github.com/MohamedBejaouiDev/musk_project#readme"
 }

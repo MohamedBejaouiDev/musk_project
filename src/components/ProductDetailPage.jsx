@@ -1,21 +1,28 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Star, ShoppingCart, ArrowLeft } from 'lucide-react';
+import { Star, ShoppingCart, ArrowLeft, User } from 'lucide-react';
 import { motion } from 'framer-motion';
 import productsData from '../data/products.json';
 import categoriesData from '../data/categories.json';
 import { useCart } from '../state/CartContext';
+import { FeaturedProducts } from './FeaturedProducts';
 
 export const ProductDetailPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [similarProducts, setSimilarProducts] = useState([]);
   const { addItem } = useCart();
 
   useEffect(() => {
     const rawProduct = productsData.find(p => p.id === parseInt(id));
     if (rawProduct) {
       const category = categoriesData.find(c => c.id === rawProduct.categoryId);
+      const images = rawProduct.images.length >= 3 
+        ? rawProduct.images.slice(0, 3)
+        : [...rawProduct.images, ...Array(3 - rawProduct.images.length).fill(rawProduct.images[0])];
+
       setProduct({
         id: rawProduct.id,
         title: rawProduct.title,
@@ -23,13 +30,20 @@ export const ProductDetailPage = () => {
         price: rawProduct.price,
         rating: rawProduct.rating.average,
         reviews: rawProduct.rating.count,
-        image: rawProduct.images[0],
+        images: images,
         description: rawProduct.description,
         stock: rawProduct.stock,
         inStock: rawProduct.stock > 0,
         category: category?.name || 'Other',
-        specs: rawProduct.specs
+        specs: rawProduct.specs,
+        badge: rawProduct.badge,
+        discount: rawProduct.discount
       });
+
+      const similar = productsData
+        .filter(p => p.categoryId === rawProduct.categoryId && p.id !== rawProduct.id)
+        .slice(0, 4);
+      setSimilarProducts(similar);
     }
   }, [id]);
 
@@ -67,13 +81,26 @@ export const ProductDetailPage = () => {
           className="bg-white rounded-lg shadow-lg p-8"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Image */}
+            {/* Image Gallery */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
             >
-              <img src={product.image} alt={product.title} className="w-full h-auto rounded-lg" />
+              <img src={product.images[selectedImage]} alt={product.title} className="w-full h-auto rounded-lg mb-4" />
+              <div className="grid grid-cols-3 gap-4">
+                {product.images.map((img, index) => (
+                  <img
+                    key={index}
+                    src={img}
+                    alt={`${product.title} ${index + 1}`}
+                    onClick={() => setSelectedImage(index)}
+                    className={`w-full h-24 object-cover rounded-lg cursor-pointer border-2 ${
+                      selectedImage === index ? 'border-[#AF8D64]' : 'border-gray-200'
+                    }`}
+                  />
+                ))}
+              </div>
             </motion.div>
 
             {/* Details */}
@@ -84,6 +111,14 @@ export const ProductDetailPage = () => {
             >
               <p className="font-montserrat text-sm text-gray-500 uppercase mb-2">{product.brand}</p>
               <h1 className="font-montserrat text-4xl font-bold text-gray-900 mb-4">{product.title}</h1>
+
+              {product.badge && (
+                <span className={`inline-block px-3 py-1 rounded-full text-xs font-montserrat font-semibold mb-4 ${
+                  product.badge === 'New' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
+                }`}>
+                  {product.badge}
+                </span>
+              )}
 
               <div className="flex items-center gap-2 mb-4">
                 <div className="flex items-center gap-1">
@@ -100,9 +135,25 @@ export const ProductDetailPage = () => {
                 </span>
               </div>
 
-              <p className="font-montserrat text-4xl font-bold text-[#AF8D64] mb-6">
-                ${product.price}
-              </p>
+              <div className="mb-6">
+                {product.discount ? (
+                  <div className="flex items-center gap-3">
+                    <p className="font-montserrat text-4xl font-bold text-red-600">
+                      ${(product.price * (1 - product.discount / 100)).toFixed(2)}
+                    </p>
+                    <p className="font-montserrat text-2xl text-gray-400 line-through">
+                      ${product.price}
+                    </p>
+                    <span className="bg-red-500 text-white px-2 py-1 rounded text-sm font-montserrat font-semibold">
+                      -{product.discount}%
+                    </span>
+                  </div>
+                ) : (
+                  <p className="font-montserrat text-4xl font-bold text-[#AF8D64]">
+                    ${product.price}
+                  </p>
+                )}
+              </div>
 
               <p className="font-montserrat text-gray-700 mb-6">{product.description}</p>
 
@@ -158,11 +209,16 @@ export const ProductDetailPage = () => {
                 }`}
               >
                 <ShoppingCart className="w-6 h-6" />
-                {product.inStock ? `Add to Cart - $${(product.price * quantity).toFixed(2)}` : 'Out of Stock'}
+                {product.inStock ? `Add to Cart - $${((product.discount ? product.price * (1 - product.discount / 100) : product.price) * quantity).toFixed(2)}` : 'Out of Stock'}
               </button>
             </motion.div>
           </div>
         </motion.div>
+
+        {/* Similar Products */}
+        <div className="mt-16">
+          <FeaturedProducts products={similarProducts} title="Similar Products" />
+        </div>
       </div>
     </div>
   );

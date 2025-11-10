@@ -44,6 +44,18 @@ export const FeaturedProducts = ({ products, title }) => {
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.3 }}
                   />
+                  {product.badge && (
+                    <span className={`absolute top-2 left-2 px-2 py-1 text-xs font-montserrat font-bold rounded ${
+                      product.badge === 'New' ? 'bg-green-500 text-white' : 'bg-[#AF8D64] text-white'
+                    }`}>
+                      {product.badge}
+                    </span>
+                  )}
+                  {product.discount && (
+                    <span className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs font-montserrat font-bold rounded">
+                      -{product.discount}%
+                    </span>
+                  )}
                 </div>
               </Link>
               
@@ -68,9 +80,18 @@ export const FeaturedProducts = ({ products, title }) => {
                   </span>
                 </div>
                 
-                <p className="font-montserrat font-bold text-lg text-[#AF8D64] mb-3">
-                  ${product.price}
-                </p>
+                <div className="mb-3">
+                  {product.discount ? (
+                    <div className="flex items-center gap-2">
+                      <p className="font-montserrat font-bold text-lg text-red-500">
+                        ${(product.price * (1 - product.discount / 100)).toFixed(2)}
+                      </p>
+                      <p className="font-montserrat text-sm text-gray-500 line-through">${product.price}</p>
+                    </div>
+                  ) : (
+                    <p className="font-montserrat font-bold text-lg text-[#AF8D64]">${product.price}</p>
+                  )}
+                </div>
                 
                 <motion.button
                   whileHover={{ scale: 1.02 }}

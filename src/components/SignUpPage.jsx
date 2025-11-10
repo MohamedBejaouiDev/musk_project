@@ -11,7 +11,8 @@ export const SignUpPage = () => {
     lastName: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    address: ''
   });
   const [toast, setToast] = useState(null);
   const navigate = useNavigate();
@@ -127,6 +128,18 @@ export const SignUpPage = () => {
                   placeholder="Confirm password"
                 />
               </div>
+            </div>
+
+            <div>
+              <label className="font-montserrat font-semibold text-gray-700 block mb-2">Address</label>
+              <textarea
+                value={formData.address}
+                onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                required
+                rows="3"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#AF8D64] font-montserrat resize-none"
+                placeholder="Enter your full address"
+              />
             </div>
 
             <button

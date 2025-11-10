@@ -1,19 +1,46 @@
 import { HeroSection } from "../components/HeroSection";
+import { HeroCarousel } from "../components/HeroCarousel";
+import { CategoryCards } from "../components/CategoryCards";
 import { BrandBar } from "../components/BrandBar";
 import { FeaturedProducts } from "../components/FeaturedProducts";
 import { BlogSection } from "../components/BlogSection";
 import { AboutUs } from "../components/AboutUs";
 import { GetInTouch } from "../components/GetInTouch";
-import { Link } from "react-router-dom";
 import productsData from "../data/products.json";
 import blog1 from "../assets/blog1.jpg";
 import blog2 from "../assets/blog2.jpg";
 import blog3 from "../assets/blog3.jpg";
+import heroPic from "../assets/heroPic.png";
 
 export const Home = () => {
+  const carouselSlides = [
+    {
+      title: "New Arrivals 2024",
+      description: "Discover our latest collection of luxury fragrances",
+      image: blog1,
+      link: "/shop",
+      buttonText: "Shop Now"
+    },
+    {
+      title: "Special Promotion",
+      description: "Up to 30% off on selected perfumes",
+      image: blog2,
+      link: "/shop",
+      buttonText: "View Deals"
+    },
+    {
+      title: "Signature Collection",
+      description: "Find your perfect scent from our exclusive range",
+      image: blog3,
+      link: "/shop",
+      buttonText: "Explore"
+    }
+  ];
+
   return (
     <div className="bg-white">
       <HeroSection />
+      <HeroCarousel slides={carouselSlides} />
       <BrandBar />
       <div id="featured">
         <FeaturedProducts products={productsData.slice(0, 5)} title="Featured Collection" />

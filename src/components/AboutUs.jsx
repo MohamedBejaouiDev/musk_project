@@ -3,7 +3,7 @@ import { Truck, Shield, RotateCcw } from 'lucide-react';
 
 export const AboutUs = () => {
   const features = [
-    { icon: Truck, title: 'Free Shipping', description: 'On orders over $200' },
+    { icon: Truck, title: 'Free Shipping', description: 'On orders over 200 DT' },
     { icon: Shield, title: 'Authentic Products', description: '100% genuine fragrances' },
     { icon: RotateCcw, title: 'Easy Returns', description: '30-day return policy' }
   ];

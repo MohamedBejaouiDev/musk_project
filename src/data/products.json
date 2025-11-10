@@ -7,7 +7,9 @@
     "price": 135.00,
     "stock": 25,
     "images": [
-      "https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dw24a244fd/Y0785220/Y0785220_F078524009_E01_RHC.jpg?sw=1024"
+      "https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dw24a244fd/Y0785220/Y0785220_F078524009_E01_RHC.jpg?sw=1024",
+      "https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dwa1adb076/Y0000118/Y0000118_E000000916_E02_RHC.jpg?sw=1024"
+    ,"https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dw7adf2a9b/Y0000118/Y0000118_E000000916_E01_RHC.jpg?sw=1024"
     ],
     "description": "A radically fresh composition with Calabrian bergamot and Ambroxan",
     "specs": {
@@ -19,7 +21,9 @@
     },
     "rating": { "average": 4.8, "count": 2847 },
     "popularity": 98,
-    "createdAt": "2024-01-15"
+    "createdAt": "2024-01-15",
+    "badge": "Best Seller",
+    "discount": 10
   },
   {
     "id": 2,
@@ -29,7 +33,9 @@
     "price": 145.00,
     "stock": 18,
     "images": [
-      "https://www.chanel.com/images//t_one//w_0.51,h_0.51,c_crop/q_auto:good,f_autoplus,fl_lossy,dpr_1.1/w_620/bleu-de-chanel-parfum-spray-3-4fl-oz--packshot-default-107180-9564892200990.jpg"
+      "https://www.chanel.com/images//t_one//w_0.51,h_0.51,c_crop/q_auto:good,f_autoplus,fl_lossy,dpr_1.1/w_620/bleu-de-chanel-parfum-spray-3-4fl-oz--packshot-default-107180-9564892200990.jpg",
+      "https://www.chanel.com/images//t_one///q_auto:good,f_autoplus,fl_lossy,dpr_1.1/w_1020/bleu-de-chanel-eau-de-parfum-spray-3-4fl-oz--packshot-premium-107360-9578060840990.jpg",
+      "https://www.chanel.com/images//t_one/t_fnbedito//q_auto:good,f_auto,fl_lossy,dpr_1.1/w_1020/bleu-de-chanel-eau-de-parfum-spray-3-4fl-oz--packshot-alternative-v1-107360-9533808082974.jpg"
     ],
     "description": "An aromatic-woody fragrance that embodies freedom and determination",
     "specs": {
@@ -51,7 +57,9 @@
     "price": 128.00,
     "stock": 22,
     "images": [
-      "https://www.yslbeautyus.com/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-ysl-master-catalog/default/dwf7216072/Black%20Opium%20Packshots/BO%20EDP/3365440787971.jpg?sw=1440&sh=1440&sm=cut&sfrm=jpg&q=85"
+      "https://www.yslbeautyus.com/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-ysl-master-catalog/default/dw304e7a4c/Holiday2025/LibreVanille/3614274323511.jpg?sw=720&sh=720&sm=cut&sfrm=jpeg&q=85",
+      "https://www.yslbeautyus.com/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-ysl-master-catalog/default/dwcb43990f/Holiday2025/LibreVanille/3614274323511_alt1.jpg?sw=720&sh=720&sm=cut&sfrm=jpg&q=85",
+      "https://www.yslbeautyus.com/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-ysl-master-catalog/default/dwc18b9b4d/Holiday2025/LibreVanille/3614274323511_alt4.jpg?sw=720&sh=720&sm=cut&sfrm=jpg&q=85"
     ],
     "description": "A seductive gourmand fragrance with coffee and vanilla",
     "specs": {
@@ -73,7 +81,9 @@
     "price": 285.00,
     "stock": 8,
     "images": [
-      "https://sdcdn.io/tf/tf_sku_T1XF01_2000x2000_0.png?height=700px&width=700px"
+      "https://sdcdn.io/tf/tf_sku_T1XF01_2000x2000_0.png?height=700px&width=700px",
+      "https://sdcdn.io/tf/tf_sku_t1xf01_2000x2000_1.png?height=700px&width=700px",
+      "https://sdcdn.io/tf/tf_sku_T1XF01_2000x2000_3.png?height=700px&width=700px"
     ],
     "description": "Rare oud wood with exotic spices and sensual amber",
     "specs": {
@@ -85,7 +95,8 @@
     },
     "rating": { "average": 4.9, "count": 1876 },
     "popularity": 92,
-    "createdAt": "2024-03-05"
+    "createdAt": "2024-03-05",
+    "badge": "New"
   },
   {
     "id": 5,
@@ -95,7 +106,9 @@
     "price": 132.00,
     "stock": 30,
     "images": [
-      "https://www.lancome-usa.com/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-lancome-us-master-catalog/default/dw578d592a/3605533286555_LA_VIE_EST_BELLE_L_EAU_DE_PARFUM_100ml.jpg?sw=1356&sh=1356&sm=cut&sfrm=jpg&q=70"
+      "https://www.lancome-usa.com/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-lancome-us-master-catalog/default/dw578d592a/3605533286555_LA_VIE_EST_BELLE_L_EAU_DE_PARFUM_100ml.jpg?sw=1356&sh=1356&sm=cut&sfrm=jpg&q=70",
+      "https://th.bing.com/th/id/OIP.PYWzcGqsz-OxiNBTlrDW8gHaHa?w=202&h=202&c=7&r=0&o=7&cb=ucfimg2&pid=1.7&rm=3&ucfimg=1",
+      "https://th.bing.com/th/id/OIP.x4klHF-xcGNa5WHF9antNQHaHa?w=202&h=202&c=7&r=0&o=7&cb=ucfimg2&pid=1.7&rm=3&ucfimg=1"
     ],
     "description": "A sweet floral gourmand with iris, patchouli and praline",
     "specs": {
@@ -117,7 +130,9 @@
     "price": 118.00,
     "stock": 35,
     "images": [
-      "https://assets-cf.armani.com/image/upload/f_auto,q_auto:best,ar_4:5,w_1350,c_fill/LE316300_NLP_100ML_F_FW2025.jpg"
+      "https://assets-cf.armani.com/image/upload/f_auto,q_auto:best,ar_4:5,w_1350,c_fill/LE316300_NLP_100ML_F_FW2025.jpg",
+      "https://www.armanibeauty.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-gac-master-catalog/default/dwd2d2a427/products/ww-00979-arm/ww-00979-arm_acqua-di-gio-eau-de-toilette-100ml-holiday-gift-set_main.jpg?sw=270&sfrm=jpg&q=85",
+      "https://www.armanibeauty.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-gac-master-catalog/default/dw712e7478/products/ww-00843-arm/ww-00843-arm_acqua-di-gio-eau-de-toilette_altview2.jpg?sw=375&sh=375&sm=cut&sfrm=jpg&q=85"
     ],
     "description": "A fresh aquatic fragrance inspired by the Mediterranean sea",
     "specs": {
@@ -139,7 +154,9 @@
     "price": 155.00,
     "stock": 20,
     "images": [
-      "https://www.chanel.com/images//t_one//w_0.51,h_0.51,c_crop/q_auto:good,f_auto,fl_lossy,dpr_1.1/w_620/coco-mademoiselle-eau-de-parfum-spray-3-4fl-oz--packshot-default-116520-9564892495902.jpg"
+      "https://www.chanel.com/images//t_one//w_0.51,h_0.51,c_crop/q_auto:good,f_auto,fl_lossy,dpr_1.1/w_620/coco-mademoiselle-eau-de-parfum-spray-3-4fl-oz--packshot-default-116520-9564892495902.jpg",
+      "https://www.chanel.com/images//t_one//w_0.91,h_0.91,c_crop/q_auto:good,f_autoplus,fl_lossy,dpr_1.1/w_1020/the-signature-coco-mademoiselle-look-set-coco-mademoiselle-eau-de-parfum-50-ml-and-rouge-coco-baume-918-my-rose-1pce-packshot-default-101156-9570550939678.jpg"
+      ,"https://www.chanel.com/images//t_one/t_fnbedito//q_auto:good,f_auto,fl_lossy,dpr_1.1/w_1020/the-signature-coco-mademoiselle-look-set-coco-mademoiselle-eau-de-parfum-50-ml-and-rouge-coco-baume-918-my-rose-1pce-packshot-alternative-v1-101156-9570552414238.jpg"
     ],
     "description": "A fresh oriental fragrance with notes of orange and patchouli",
     "specs": {
@@ -161,7 +178,9 @@
     "price": 445.00,
     "stock": 12,
     "images": [
-      "https://creedboutique.com/cdn/shop/files/aventus-100ml-bottle_3413e5f4-3eee-40b3-8451-2546a370ec5b.jpg?v=1734710265&width=1100"
+      "https://creedboutique.com/cdn/shop/files/aventus-100ml-bottle_3413e5f4-3eee-40b3-8451-2546a370ec5b.jpg?v=1734710265&width=1100",
+      "https://www.creedfragrance.fr/images?url=https://static.thcdn.com/widgets/216-fr/16/original-Creed_desktop_Aventus_collection_FR_0822-030316.png&format=webp&auto=avif&width=1920&fit=cover",
+      "https://www.creedfragrance.fr/images?url=https://static.thcdn.com/productimg/original/12852836-2085241119322708.jpg&format=webp&auto=avif&width=1000&height=1000&fit=cover"
     ],
     "description": "A fruity chypre fragrance celebrating strength and success",
     "specs": {
@@ -173,7 +192,9 @@
     },
     "rating": { "average": 4.9, "count": 5234 },
     "popularity": 100,
-    "createdAt": "2024-03-01"
+    "createdAt": "2024-03-01",
+    "badge": "Best Seller",
+    "discount": 15
   },
   {
     "id": 9,
@@ -183,7 +204,9 @@
     "price": 142.00,
     "stock": 28,
     "images": [
-      "https://medias.carolinaherrera.com/cdn-cgi/image/width=1200,quality=90,format=auto,fit=contain/medias/sys_master/images/h1f/h3a/9970520621086/LR-GG-Elixir-1/LR-GG-Elixir-1.jpg"
+      "https://medias.carolinaherrera.com/cdn-cgi/image/width=1200,quality=90,format=auto,fit=contain/medias/sys_master/images/h1f/h3a/9970520621086/LR-GG-Elixir-1/LR-GG-Elixir-1.jpg",
+      "https://media.sephora.eu/content/dam/digital/pim/published/C/CAROLINA_HERRERA/P2700015/3136-media_1.jpg?scaleWidth=undefined&scaleHeight=undefined&scaleMode=undefined",
+      "https://media.sephora.eu/content/dam/digital/pim/published/C/CAROLINA_HERRERA/P2700015/3136-media_2.jpg?scaleWidth=undefined&scaleHeight=undefined&scaleMode=undefined"
     ],
     "description": "A bold oriental floral with tuberose and tonka bean",
     "specs": {
@@ -205,7 +228,9 @@
     "price": 98.00,
     "stock": 40,
     "images": [
-      "https://medias.rabanne.com/cdn-cgi/image/width=342/https://medias.rabanne.com/medias/sys_master/images/h01/hf4/10602562715678/10602562650142/10602562650142.jpg"
+      "https://medias.rabanne.com/cdn-cgi/image/width=342/https://medias.rabanne.com/medias/sys_master/images/h01/hf4/10602562715678/10602562650142/10602562650142.jpg",
+      "https://th.bing.com/th/id/OIP.t5d89vN--GF16eXm0Ujr8gHaHa?w=172&h=180&c=7&r=0&o=7&cb=ucfimg2&pid=1.7&rm=3&ucfimg=1",
+      "https://th.bing.com/th/id/OIP.b-jwcIijEIitUlY4_ezXKwHaHa?w=172&h=180&c=7&r=0&o=7&cb=ucfimg2&pid=1.7&rm=3&ucfimg=1"
     ],
     "description": "A spicy leather fragrance with cinnamon and rose",
     "specs": {
@@ -227,7 +252,9 @@
     "price": 165.00,
     "stock": 15,
     "images": [
-      "https://www.viktor-rolf.com/cdn/shop/files/20240605_VR_FRAGANCE_SUN_SUPERGA_Flower_Bomb_019-B-P_copy.jpg?v=1760520076&width=900"
+      "https://www.viktor-rolf.com/cdn/shop/files/20240605_VR_FRAGANCE_SUN_SUPERGA_Flower_Bomb_019-B-P_copy.jpg?v=1760520076&width=900",
+      "https://th.bing.com/th/id/OIP.rlrNaGwrCYtQ9IAO4l8TEQHaLH?w=142&h=213&c=7&r=0&o=7&cb=ucfimg2&pid=1.7&rm=3&ucfimg=1",
+      "https://th.bing.com/th/id/OIP.iTOfmELYW8zHMOH_LrVkbgHaIM?w=192&h=213&c=7&r=0&o=7&cb=ucfimg2&pid=1.7&rm=3&ucfimg=1"
     ],
     "description": "An explosive floral bouquet with jasmine and rose",
     "specs": {
@@ -249,7 +276,8 @@
     "price": 325.00,
     "stock": 10,
     "images": [
-      "https://sdcdn.io/tf/tf_sku_T01K01_2000x2000_0.png?height=700px&width=700px"
+      "https://sdcdn.io/tf/tf_sku_T01K01_2000x2000_0.png?height=700px&width=700px",
+      "https://sdcdn.io/tf/tf_sku_T01K01_2000x2000_1.png?height=700px&width=700px"
     ],
     "description": "A warm spicy fragrance with tobacco leaf and vanilla",
     "specs": {
@@ -271,7 +299,9 @@
     "price": 112.00,
     "stock": 32,
     "images": [
-      "https://www.dolcegabbana.com/dw/image/v2/BKDB_PRD/on/demandware.static/-/Sites-15/default/dwa2c7c0e7/images/zoom/VT01JMVT000_9V000_0.jpg"
+      "https://www.dolcegabbana.com/dw/image/v2/BKDB_PRD/on/demandware.static/-/Sites-15/default/dwa2c7c0e7/images/zoom/VT01JMVT000_9V000_0.jpg",
+      "https://dolcegabbana-cdn.thron.com/delivery/public/image/dolcegabbana/a9ebc5c2-abad-43cc-a496-0674c7e52bb3/jbptyw/std/765x1040/cover?format=auto",
+      "https://dolcegabbana-cdn.thron.com/delivery/public/image/dolcegabbana/5dcc6bdd-19bc-4b14-833b-98d8e89ca3b0/gakml8/std/650x830/3?format=auto"
     ],
     "description": "A fresh fruity floral with Sicilian lemon and apple",
     "specs": {
@@ -293,7 +323,9 @@
     "price": 325.00,
     "stock": 8,
     "images": [
-      "https://www.franciskurkdjian.com/dw/image/v2/BJSB_PRD/on/demandware.static/-/Sites-mfk-master-catalog/default/dw66195273/BaccaratRouge540/EDP/ABTEST/3700559603116_BR540_eau-de-parfum_70ml_2000x2000_1.png?sw=640&sh=640&strip=false"
+      "https://www.franciskurkdjian.com/dw/image/v2/BJSB_PRD/on/demandware.static/-/Sites-mfk-master-catalog/default/dw66195273/BaccaratRouge540/EDP/ABTEST/3700559603116_BR540_eau-de-parfum_70ml_2000x2000_1.png?sw=640&sh=640&strip=false",
+      "https://www.franciskurkdjian.com/dw/image/v2/BJSB_PRD/on/demandware.static/-/Sites-mfk-master-catalog/default/dwfba2a709/BaccaratRouge540/EDP/ABTEST/3700559603116_BR540_eau-de-parfum_70ml_2000x2000_2.png?sw=640&sh=640&strip=false",
+      "https://www.franciskurkdjian.com/dw/image/v2/BJSB_PRD/on/demandware.static/-/Sites-mfk-master-catalog/default/dwc02ecc88/BaccaratRouge540/EDP/ABTEST/3700559603116_BR540_eau-de-parfum_70ml_2000x2000_3.png?sw=640&sh=640&strip=false"
     ],
     "description": "A luminous woody floral with jasmine and saffron",
     "specs": {
@@ -305,7 +337,8 @@
     },
     "rating": { "average": 4.9, "count": 2134 },
     "popularity": 97,
-    "createdAt": "2024-03-15"
+    "createdAt": "2024-03-15",
+    "badge": "New"
   },
   {
     "id": 15,
@@ -315,7 +348,8 @@
     "price": 125.00,
     "stock": 25,
     "images": [
-      "https://media.gucci.com/style/HEXFBFBFB_South_0_160_640x640/1690978676/765589_99999_0099_001_100_0000_Light.jpg"
+      "https://media.gucci.com/style/HEXFBFBFB_South_0_160_640x640/1690978676/765589_99999_0099_001_100_0000_Light.jpg",
+      "https://media.gucci.com/style/White_South_0_160_316x316/1690978676/765589_99999_0099_002_100_0000_Light-Gucci-Guilty-Elixir-de-Parfum-pour-Homme-60ml.jpg"
     ],
     "description": "A warm floral oriental with lilac and patchouli",
     "specs": {
@@ -337,7 +371,9 @@
     "price": 138.00,
     "stock": 22,
     "images": [
-      "https://www.yslbeautyus.com/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-ysl-master-catalog/default/dw3cedbd53/Images2019/Libre%20Eau%20De%20Parfum/90mL/3614272648425.jpg?sw=1440&sh=1440&sm=cut&sfrm=jpg&q=85"
+      "https://www.yslbeautyus.com/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-ysl-master-catalog/default/dw3cedbd53/Images2019/Libre%20Eau%20De%20Parfum/90mL/3614272648425.jpg?sw=1440&sh=1440&sm=cut&sfrm=jpg&q=85",
+      "https://www.yslbeauty.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-ysl-master-catalog/fr_FR/dwfc682221/square/Fragrance/For-Her/WW-50424YSL_Libre_Eau_de_Parfum/3614272648418_libre_eau_de_parfum_50ml_alt1.jpg?sw=720&sh=720&sm=cut&sfrm=jpg&q=85",
+      "https://www.yslbeauty.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-ysl-master-catalog/fr_FR/dw8b5bb873/Fragrance/For-Her/WW-50424YSL_Libre_Eau_de_Parfum/still-life-ingredient.jpg?sw=720&sh=720&sm=cut&sfrm=jpg&q=85"
     ],
     "description": "A bold floral lavender with orange blossom and musk",
     "specs": {
@@ -359,7 +395,9 @@
     "price": 105.00,
     "stock": 38,
     "images": [
-      "https://medias.rabanne.com/cdn-cgi/image/width=1024/https://medias.rabanne.com/medias/sys_master/images/hd8/h55/10577077010462/10577076944926/10577076944926.jpg"
+      "https://medias.rabanne.com/cdn-cgi/image/width=1024/https://medias.rabanne.com/medias/sys_master/images/hd8/h55/10577077010462/10577076944926/10577076944926.jpg",
+      "https://medias.rabanne.com/cdn-cgi/image/width=700,quality=90/https://medias.rabanne.com/medias/sys_master/images/hb5/h4d/10403446685726/10403446620190/10403446620190.jpg",
+      "https://medias.rabanne.com/cdn-cgi/image/width=700,quality=90/https://medias.rabanne.com/medias/sys_master/images/he4/h46/10403446882334/10403446816798/10403446816798.jpg"
     ],
     "description": "A fresh woody aquatic with grapefruit and guaiac wood",
     "specs": {
@@ -381,7 +419,9 @@
     "price": 135.00,
     "stock": 20,
     "images": [
-      "https://www.giorgioarmanibeauty-usa.com/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-gab-master-catalog/default/dwe431d531/products/A218/A218%202025%20packshots/3605521816658_01.jpg?sw=1442&sh=1442&sm=cut&sfrm=png&q=85"
+      "https://www.giorgioarmanibeauty-usa.com/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-gab-master-catalog/default/dwe431d531/products/A218/A218%202025%20packshots/3605521816658_01.jpg?sw=1442&sh=1442&sm=cut&sfrm=png&q=85",
+      "https://www.armanibeauty.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-gac-emea-west-Library/default/dw4a9cbdde/landing-pages/si-parfum/si-parfum-edp-image-v2.jpg?sw=562&sh=999&sm=cut&q=85",
+      "https://www.armanibeauty.fr/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-gac-emea-west-Library/default/dw2f0c80ca/landing-pages/si-parfum/si-parfum-content-tile-elegance-img.jpg?sw=1000&sh=1000&sm=cut&q=85"
     ],
     "description": "A chypre fragrance with blackcurrant nectar and vanilla",
     "specs": {
@@ -403,7 +443,9 @@
     "price": 115.00,
     "stock": 30,
     "images": [
-      "https://www.versace.com/dw/image/v2/BGWN_PRD/on/demandware.static/-/Sites-ver-master-catalog/default/dwee6cbd73/original/90_R740110-R100MLS_RNUL_20_ErosEDP100ml-Eros-Versace-online-store_0_5.jpg?sw=1200&q=85&strip=true"
+      "https://www.versace.com/dw/image/v2/BGWN_PRD/on/demandware.static/-/Sites-ver-master-catalog/default/dwee6cbd73/original/90_R740110-R100MLS_RNUL_20_ErosEDP100ml-Eros-Versace-online-store_0_5.jpg?sw=1200&q=85&strip=true",
+      "https://www.versace.com/dw/image/v2/BGWN_PRD/on/demandware.static/-/Sites-ver-master-catalog/default/dwb359d906/original/90_R740108-R050MLS_RNUL_22_ErosEDP50ml-Eros-Versace-online-store_0_5.jpg?sw=550&q=85&strip=true",
+      "https://www.versace.com/dw/image/v2/BGWN_PRD/on/demandware.static/-/Sites-ver-master-catalog/default/dw0d7c3826/original/90_R740210-R100MLS_RNUL_22_Eros~Parfum~100~ml-Eros-Versace-online-store_1_7.jpg?sw=550&q=85&strip=true"
     ],
     "description": "A fresh oriental with mint, lemon and tonka bean",
     "specs": {
@@ -425,7 +467,8 @@
     "price": 128.00,
     "stock": 18,
     "images": [
-      "https://www.mugler.com/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-mugler-master-catalog/default/dw150a5257/images/pdp/M010401002/M010401002/3439600056969_alien_90ml_refillable_main_v2.jpg?sw=1440&sh=1440&sm=cut&sfrm=png&q=70"
+      "https://www.mugler.com/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-mugler-master-catalog/default/dw150a5257/images/pdp/M010401002/M010401002/3439600056969_alien_90ml_refillable_main_v2.jpg?sw=1440&sh=1440&sm=cut&sfrm=png&q=70",
+      "https://th.bing.com/th/id/OIP._PuFf3u_am1-EWI5yZFJ2gHaHa?w=212&h=212&c=7&r=0&o=7&cb=ucfimg2&pid=1.7&rm=3&ucfimg=1"
     ],
     "description": "A mysterious woody floral with jasmine and cashmeran",
     "specs": {
@@ -437,6 +480,8 @@
     },
     "rating": { "average": 4.6, "count": 2987 },
     "popularity": 91,
-    "createdAt": "2024-03-08"
+    "createdAt": "2024-03-08",
+    "badge": "New",
+    "discount": 20
   }
 ]
