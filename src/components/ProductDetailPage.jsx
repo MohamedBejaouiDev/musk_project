@@ -8,7 +8,7 @@ import { useCart } from '../state/CartContext';
 import { FeaturedProducts } from './FeaturedProducts';
 
 export const ProductDetailPage = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // Get ID from URL
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
@@ -17,6 +17,7 @@ export const ProductDetailPage = () => {
 
   useEffect(() => {
     const rawProduct = productsData.find(p => p.id === parseInt(id));
+    
     if (rawProduct) {
       const category = categoriesData.find(c => c.id === rawProduct.categoryId);
       const images = rawProduct.images.length >= 3 
@@ -40,6 +41,7 @@ export const ProductDetailPage = () => {
         discount: rawProduct.discount
       });
 
+      // Get 4 similar products (same category)
       const similar = productsData
         .filter(p => p.categoryId === rawProduct.categoryId && p.id !== rawProduct.id)
         .slice(0, 4);
@@ -139,10 +141,10 @@ export const ProductDetailPage = () => {
                 {product.discount ? (
                   <div className="flex items-center gap-3">
                     <p className="font-montserrat text-4xl font-bold text-red-600">
-                      ${(product.price * (1 - product.discount / 100)).toFixed(2)}
+                      DT {(product.price * (1 - product.discount / 100)).toFixed(2)}
                     </p>
                     <p className="font-montserrat text-2xl text-gray-400 line-through">
-                      ${product.price}
+                      DT {product.price}
                     </p>
                     <span className="bg-red-500 text-white px-2 py-1 rounded text-sm font-montserrat font-semibold">
                       -{product.discount}%
@@ -150,7 +152,7 @@ export const ProductDetailPage = () => {
                   </div>
                 ) : (
                   <p className="font-montserrat text-4xl font-bold text-[#AF8D64]">
-                    ${product.price}
+                    DT {product.price}
                   </p>
                 )}
               </div>
@@ -209,7 +211,7 @@ export const ProductDetailPage = () => {
                 }`}
               >
                 <ShoppingCart className="w-6 h-6" />
-                {product.inStock ? `Add to Cart - $${((product.discount ? product.price * (1 - product.discount / 100) : product.price) * quantity).toFixed(2)}` : 'Out of Stock'}
+                {product.inStock ? `Add to Cart - DT ${((product.discount ? product.price * (1 - product.discount / 100) : product.price) * quantity).toFixed(2)}` : 'Out of Stock'}
               </button>
             </motion.div>
           </div>

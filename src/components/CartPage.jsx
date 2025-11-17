@@ -12,8 +12,14 @@ export const CartPage = () => {
   const navigate = useNavigate();
 
   const handleCheckout = () => {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+    let currentUser = null;
+    try {
+      currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+    } catch (error) {
+      console.error('Error parsing user data:', error);
+    }
     
+    // Chof ken el user connecté
     if (!currentUser) {
       setToast({ message: 'Please login to checkout', type: 'error' });
       setTimeout(() => navigate('/login'), 1000);
@@ -31,7 +37,7 @@ export const CartPage = () => {
   const handlePayment = (e) => {
     e.preventDefault();
     setToast({ message: 'Payment successful! Order placed.', type: 'success' });
-    clearCart();
+    clearCart(); // Far'gh el panier
     setIsCheckingOut(false);
     setTimeout(() => navigate('/'), 1000);
   };
@@ -119,7 +125,7 @@ export const CartPage = () => {
                   type="submit"
                   className="flex-1 bg-[#AF8D64] text-white py-3 rounded-lg font-montserrat font-semibold hover:bg-[#9a7a50]"
                 >
-                  Pay ${totalPrice.toFixed(2)}
+                  Pay DT {totalPrice.toFixed(2)}
                 </button>
               </div>
             </form>
@@ -208,7 +214,7 @@ export const CartPage = () => {
                           </button>
                         </div>
                         <p className="font-montserrat text-xl font-bold text-[#AF8D64]">
-                          ${(item.price * item.quantity).toFixed(2)}
+                          DT {(item.price * item.quantity).toFixed(2)}
                         </p>
                       </div>
                     </div>
@@ -239,7 +245,7 @@ export const CartPage = () => {
                   <div className="border-t pt-3">
                     <div className="flex justify-between">
                       <span className="font-montserrat text-xl font-bold">Total</span>
-                      <span className="font-montserrat text-2xl font-bold text-[#AF8D64]">${totalPrice.toFixed(2)}</span>
+                      <span className="font-montserrat text-2xl font-bold text-[#AF8D64]">DT {totalPrice.toFixed(2)}</span>
                     </div>
                   </div>
                 </div>

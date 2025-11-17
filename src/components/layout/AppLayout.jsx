@@ -7,7 +7,7 @@ export const AppLayout = () => {
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
       <main>
-        <Outlet />
+        <Outlet /> {/* El contenu yetbaddel 7asb el page */}
       </main>
       <Footer />
     </div>

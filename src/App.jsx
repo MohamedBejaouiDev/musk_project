@@ -24,8 +24,11 @@ export default function App() {
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
       <BrowserRouter>
         <Routes>
+          {/* Pages without layout */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
+          
+          {/* Pages with layout (Header + Footer) */}
           <Route path="/" element={<AppLayout />}>
             <Route index element={<Home />} />
             <Route path="shop" element={<ShopPage />} />

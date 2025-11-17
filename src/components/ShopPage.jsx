@@ -15,7 +15,7 @@ export const ShopPage = () => {
   const [ratingRange, setRatingRange] = useState([0, 5]);
   const [sortBy, setSortBy] = useState('featured');
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 12;
+  const productsPerPage = 12; // 12 products fel page
   const { addItem } = useCart();
 
   useEffect(() => {
@@ -39,6 +39,7 @@ export const ShopPage = () => {
     setFilteredProducts(transformed);
   }, []);
 
+  // Kol ma yetbaddel filter, filtri el products
   useEffect(() => {
     let filtered = [...products];
 
@@ -159,8 +160,8 @@ export const ShopPage = () => {
                     className="w-full"
                   />
                   <div className="flex justify-between font-montserrat text-xs text-gray-600">
-                    <span>${priceRange[0]}</span>
-                    <span>${priceRange[1]}</span>
+                    <span>DT {priceRange[0]}</span>
+                    <span>DT {priceRange[1]}</span>
                   </div>
                 </div>
               </div>
@@ -279,12 +280,12 @@ export const ShopPage = () => {
                   {product.discount ? (
                     <div className="flex items-center gap-2">
                       <p className="font-montserrat font-bold text-lg text-red-500">
-                        ${(product.price * (1 - product.discount / 100)).toFixed(2)}
+                        DT {(product.price * (1 - product.discount / 100)).toFixed(2)}
                       </p>
-                      <p className="font-montserrat text-sm text-gray-500 line-through">${product.price}</p>
+                      <p className="font-montserrat text-sm text-gray-500 line-through">DT {product.price}</p>
                     </div>
                   ) : (
-                    <p className="font-montserrat font-bold text-lg text-[#AF8D64]">${product.price}</p>
+                    <p className="font-montserrat font-bold text-lg text-[#AF8D64]">DT {product.price}</p>
                   )}
                 </div>
                 

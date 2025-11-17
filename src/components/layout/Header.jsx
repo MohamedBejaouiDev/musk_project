@@ -2,6 +2,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { ShoppingCart, Menu, X, LogIn, UserPlus, LogOut } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useCart } from '../../state/CartContext';
+import { authService } from '../../services/auth.js';
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,12 +12,10 @@ export const Header = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('currentUser') || 'null');
-    setCurrentUser(user);
+    setCurrentUser(authService.getCurrentUser());
 
-    const handleAuthChange = () => {
-      const updatedUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
-      setCurrentUser(updatedUser);
+    const handleAuthChange = (event) => {
+      setCurrentUser(event.detail.user);
     };
 
     window.addEventListener('authChange', handleAuthChange);
@@ -24,10 +23,8 @@ export const Header = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('currentUser');
-    setCurrentUser(null);
-    window.dispatchEvent(new Event('authChange'));
-    window.location.href = '/';
+    authService.logout();
+    navigate('/');
   };
 
   const handleNavClick = (e, path) => {

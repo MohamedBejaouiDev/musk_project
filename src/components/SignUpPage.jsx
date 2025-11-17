@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Header } from './layout/Header';
 import { Footer } from './layout/Footer';
 import { Toast } from './Toast';
+import { authService } from '../services/auth.js';
 
 export const SignUpPage = () => {
   const [formData, setFormData] = useState({
@@ -17,7 +18,7 @@ export const SignUpPage = () => {
   const [toast, setToast] = useState(null);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (formData.password !== formData.confirmPassword) {
@@ -25,29 +26,13 @@ export const SignUpPage = () => {
       return;
     }
 
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    
-    if (users.find(u => u.email === formData.email)) {
-      setToast({ message: 'Email already registered!', type: 'error' });
-      return;
+    try {
+      await authService.register(formData);
+      setToast({ message: 'Account created successfully!', type: 'success' });
+      setTimeout(() => navigate('/'), 1000);
+    } catch (error) {
+      setToast({ message: error.message, type: 'error' });
     }
-
-    const newUser = {
-      id: Date.now(),
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email,
-      password: formData.password,
-      createdAt: new Date().toISOString()
-    };
-
-    users.push(newUser);
-    localStorage.setItem('users', JSON.stringify(users));
-    localStorage.setItem('currentUser', JSON.stringify({ ...newUser, password: undefined }));
-    window.dispatchEvent(new Event('authChange'));
-    
-    setToast({ message: 'Account created successfully!', type: 'success' });
-    setTimeout(() => navigate('/'), 1000);
   };
 
   return (

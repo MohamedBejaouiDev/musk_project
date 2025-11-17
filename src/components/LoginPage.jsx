@@ -4,25 +4,22 @@ import { motion } from 'framer-motion';
 import { Header } from './layout/Header';
 import { Footer } from './layout/Footer';
 import { Toast } from './Toast';
+import { authService } from '../services/auth.js';
 
 export const LoginPage = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [toast, setToast] = useState(null);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const user = users.find(u => u.email === formData.email && u.password === formData.password);
-
-    if (user) {
-      localStorage.setItem('currentUser', JSON.stringify({ ...user, password: undefined }));
-      window.dispatchEvent(new Event('authChange'));
+    try {
+      await authService.login(formData);
       setToast({ message: 'Login successful!', type: 'success' });
       setTimeout(() => navigate('/'), 1000);
-    } else {
-      setToast({ message: 'Invalid email or password!', type: 'error' });
+    } catch (error) {
+      setToast({ message: error.message, type: 'error' });
     }
   };
 

@@ -9,7 +9,7 @@ export const FeaturedProducts = ({ products, title }) => {
 
   const handleAddToCart = (product) => {
     const rawProduct = productsData.find(p => p.id === product.id);
-    addItem({ ...product, stock: rawProduct?.stock || 0 });
+    addItem({ ...product, stock: rawProduct?.stock || 0, inStock: (rawProduct?.stock || 0) > 0, image: product.images[0] });
   };
 
   return (
@@ -84,12 +84,12 @@ export const FeaturedProducts = ({ products, title }) => {
                   {product.discount ? (
                     <div className="flex items-center gap-2">
                       <p className="font-montserrat font-bold text-lg text-red-500">
-                        ${(product.price * (1 - product.discount / 100)).toFixed(2)}
+                        DT {(product.price * (1 - product.discount / 100)).toFixed(2)}
                       </p>
-                      <p className="font-montserrat text-sm text-gray-500 line-through">${product.price}</p>
+                      <p className="font-montserrat text-sm text-gray-500 line-through">DT {product.price}</p>
                     </div>
                   ) : (
-                    <p className="font-montserrat font-bold text-lg text-[#AF8D64]">${product.price}</p>
+                    <p className="font-montserrat font-bold text-lg text-[#AF8D64]">DT {product.price}</p>
                   )}
                 </div>
                 

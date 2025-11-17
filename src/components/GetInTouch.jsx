@@ -36,8 +36,8 @@ export const GetInTouch = () => {
           >
             {[
               { icon: Mail, title: 'Email', value: 'contact@musk.mh' },
-              { icon: Phone, title: 'Phone', value: '+1 (800) 555-1234' },
-              { icon: MapPin, title: 'Address', value: '123 Luxury Ave, Paris, France' }
+              { icon: Phone, title: 'Phone', value: '+216 50062502' },
+              { icon: MapPin, title: 'Address', value: 'Jardins menzah 2, Mnihla, Ariana, Tunisia 2094' }
             ].map((item, index) => (
               <motion.div 
                 key={index}
