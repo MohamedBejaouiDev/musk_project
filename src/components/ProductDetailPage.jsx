@@ -1,52 +1,67 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Star, ShoppingCart, ArrowLeft, User } from 'lucide-react';
+import { Star, ShoppingCart, ArrowLeft, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import productsData from '../data/products.json';
-import categoriesData from '../data/categories.json';
+import { getProduct, getProducts, getCategories } from '../services/products';
 import { useCart } from '../state/CartContext';
 import { FeaturedProducts } from './FeaturedProducts';
 
 export const ProductDetailPage = () => {
-  const { id } = useParams(); // Get ID from URL
+  const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
   const [similarProducts, setSimilarProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { addItem } = useCart();
 
   useEffect(() => {
-    const rawProduct = productsData.find(p => p.id === parseInt(id));
+    const fetchProductData = async () => {
+      try {
+        setLoading(true);
+        const [rawProduct, allProducts, categories] = await Promise.all([
+          getProduct(id),
+          getProducts(),
+          getCategories()
+        ]);
+        
+        if (rawProduct) {
+          const category = categories.find(c => c.id === rawProduct.categoryId);
+          const images = rawProduct.images.length >= 3 
+            ? rawProduct.images.slice(0, 3)
+            : [...rawProduct.images, ...Array(3 - rawProduct.images.length).fill(rawProduct.images[0])];
+
+          setProduct({
+            id: rawProduct.id,
+            title: rawProduct.title,
+            brand: rawProduct.brand,
+            price: rawProduct.price,
+            rating: rawProduct.rating.average,
+            reviews: rawProduct.rating.count,
+            images: images,
+            description: rawProduct.description,
+            stock: rawProduct.stock,
+            inStock: rawProduct.stock > 0,
+            category: category?.name || 'Other',
+            specs: rawProduct.specs,
+            badge: rawProduct.badge,
+            discount: rawProduct.discount
+          });
+
+          // Get 4 similar products (same category)
+          const similar = allProducts
+            .filter(p => p.categoryId === rawProduct.categoryId && p.id !== rawProduct.id)
+            .slice(0, 4);
+          setSimilarProducts(similar);
+        }
+      } catch (error) {
+        console.error('Error fetching product:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
     
-    if (rawProduct) {
-      const category = categoriesData.find(c => c.id === rawProduct.categoryId);
-      const images = rawProduct.images.length >= 3 
-        ? rawProduct.images.slice(0, 3)
-        : [...rawProduct.images, ...Array(3 - rawProduct.images.length).fill(rawProduct.images[0])];
-
-      setProduct({
-        id: rawProduct.id,
-        title: rawProduct.title,
-        brand: rawProduct.brand,
-        price: rawProduct.price,
-        rating: rawProduct.rating.average,
-        reviews: rawProduct.rating.count,
-        images: images,
-        description: rawProduct.description,
-        stock: rawProduct.stock,
-        inStock: rawProduct.stock > 0,
-        category: category?.name || 'Other',
-        specs: rawProduct.specs,
-        badge: rawProduct.badge,
-        discount: rawProduct.discount
-      });
-
-      // Get 4 similar products (same category)
-      const similar = productsData
-        .filter(p => p.categoryId === rawProduct.categoryId && p.id !== rawProduct.id)
-        .slice(0, 4);
-      setSimilarProducts(similar);
-    }
+    fetchProductData();
   }, [id]);
 
   const handleAddToCart = () => {
@@ -55,10 +70,19 @@ export const ProductDetailPage = () => {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-[#AF8D64]" />
+        <span className="ml-2 font-montserrat text-gray-600">Loading product...</span>
+      </div>
+    );
+  }
+
   if (!product) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <p className="font-montserrat text-gray-600">Loading...</p>
+        <p className="font-montserrat text-gray-600">Product not found</p>
       </div>
     );
   }
@@ -218,9 +242,11 @@ export const ProductDetailPage = () => {
         </motion.div>
 
         {/* Similar Products */}
-        <div className="mt-16">
-          <FeaturedProducts products={similarProducts} title="Similar Products" />
-        </div>
+        {similarProducts.length > 0 && (
+          <div className="mt-16">
+            <FeaturedProducts filter="similar" title="Similar Products" />
+          </div>
+        )}
       </div>
     </div>
   );

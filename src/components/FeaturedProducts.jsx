@@ -1,15 +1,45 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Star, ShoppingCart } from 'lucide-react';
+import { Star, ShoppingCart, Loader2 } from 'lucide-react';
 import { useCart } from '../state/CartContext';
-import productsData from '../data/products.json';
+import { getProducts } from '../services/products';
 
-export const FeaturedProducts = ({ products, title }) => {
+export const FeaturedProducts = ({ title, filter }) => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { addItem } = useCart();
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const data = await getProducts();
+        let filtered = data;
+        
+        if (filter === 'featured') {
+          filtered = data.filter(p => p.badge === 'Best Seller').slice(0, 8);
+        } else if (filter === 'new') {
+          filtered = data.filter(p => p.badge === 'New').slice(0, 8);
+        } else if (filter === 'bestsellers') {
+          filtered = data.sort((a, b) => b.popularity - a.popularity).slice(0, 8);
+        } else {
+          filtered = data.slice(0, 8);
+        }
+        
+        setProducts(filtered);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchProducts();
+  }, [filter]);
+
   const handleAddToCart = (product) => {
-    const rawProduct = productsData.find(p => p.id === product.id);
-    addItem({ ...product, stock: rawProduct?.stock || 0, inStock: (rawProduct?.stock || 0) > 0, image: product.images[0] });
+    addItem({ ...product, stock: product.stock, inStock: product.stock > 0, image: product.images[0] });
   };
 
   return (
@@ -24,6 +54,12 @@ export const FeaturedProducts = ({ products, title }) => {
           {title}
         </motion.h2>
         
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+            <Loader2 className="w-8 h-8 animate-spin text-[#AF8D64]" />
+            <span className="ml-2 font-montserrat text-gray-600">Loading products...</span>
+          </div>
+        ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {products.map((product, index) => (
             <motion.div 
@@ -111,6 +147,7 @@ export const FeaturedProducts = ({ products, title }) => {
             </motion.div>
           ))}
         </div>
+        )}
       </div>
     </div>
   );

@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Star, ShoppingCart, Search } from 'lucide-react';
+import { Star, ShoppingCart, Search, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import productsData from '../data/products.json';
-import categoriesData from '../data/categories.json';
+import { getProducts, getCategories } from '../services/products';
 import { useCart } from '../state/CartContext';
 
 export const ShopPage = () => {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -15,28 +15,47 @@ export const ShopPage = () => {
   const [ratingRange, setRatingRange] = useState([0, 5]);
   const [sortBy, setSortBy] = useState('featured');
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 12; // 12 products fel page
+  const [loading, setLoading] = useState(true);
+  const productsPerPage = 12;
   const { addItem } = useCart();
 
   useEffect(() => {
-    const transformed = productsData.map(p => {
-      const category = categoriesData.find(c => c.id === p.categoryId);
-      return {
-        id: p.id,
-        title: p.title,
-        brand: p.brand,
-        price: p.price,
-        rating: p.rating.average,
-        image: p.images[0],
-        category: category?.name || 'Other',
-        stock: p.stock,
-        inStock: p.stock > 0,
-        badge: p.badge,
-        discount: p.discount
-      };
-    });
-    setProducts(transformed);
-    setFilteredProducts(transformed);
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const [productsData, categoriesData] = await Promise.all([
+          getProducts(),
+          getCategories()
+        ]);
+        
+        const transformed = productsData.map(p => {
+          const category = categoriesData.find(c => c.id === p.categoryId);
+          return {
+            id: p.id,
+            title: p.title,
+            brand: p.brand,
+            price: p.price,
+            rating: p.rating.average,
+            image: p.images[0],
+            category: category?.name || 'Other',
+            stock: p.stock,
+            inStock: p.stock > 0,
+            badge: p.badge,
+            discount: p.discount
+          };
+        });
+        
+        setProducts(transformed);
+        setFilteredProducts(transformed);
+        setCategories(categoriesData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchData();
   }, []);
 
   // Kol ma yetbaddel filter, filtri el products
@@ -132,7 +151,7 @@ export const ShopPage = () => {
                     />
                     <span className="font-montserrat text-xs lg:text-sm text-gray-700">All</span>
                   </label>
-                  {categoriesData.map(cat => (
+                  {categories.map(cat => (
                     <label key={cat.id} className="flex items-center gap-2 cursor-pointer">
                       <input
                         type="radio"
@@ -232,6 +251,13 @@ export const ShopPage = () => {
 
           {/* Products Grid */}
           <div className="flex-1">
+            {loading ? (
+              <div className="flex justify-center items-center py-20">
+                <Loader2 className="w-8 h-8 animate-spin text-[#AF8D64]" />
+                <span className="ml-2 font-montserrat text-gray-600">Loading products...</span>
+              </div>
+            ) : (
+              <>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-8">
           {currentProducts.map((product, index) => (
             <motion.div 
@@ -340,6 +366,8 @@ export const ShopPage = () => {
             </button>
           </div>
         )}
+              </>
+            )}
           </div>
         </div>
       </div>
