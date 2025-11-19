@@ -53,6 +53,37 @@ class ApiService {
   async getProfile() {
     return this.request('/auth/profile');
   }
+
+  // Cart endpoints
+  async getCart() {
+    return this.request('/cart');
+  }
+
+  async addToCart(productId, quantity = 1) {
+    return this.request('/cart/add', {
+      method: 'POST',
+      body: { productId, quantity }
+    });
+  }
+
+  async updateCartItem(itemId, quantity) {
+    return this.request(`/cart/update/${itemId}`, {
+      method: 'PUT',
+      body: { quantity }
+    });
+  }
+
+  async removeFromCart(itemId) {
+    return this.request(`/cart/remove/${itemId}`, {
+      method: 'DELETE'
+    });
+  }
+
+  async clearCart() {
+    return this.request('/cart/clear', {
+      method: 'DELETE'
+    });
+  }
 }
 
 export const apiService = new ApiService();

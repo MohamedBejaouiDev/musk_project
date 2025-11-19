@@ -2,11 +2,16 @@
 import { createContext, useContext, useReducer, useEffect } from 'react';
 import { storage } from '../services/storage';
 import { toastEmitter } from '../utils/toastEmitter';
+import { apiService } from '../services/api.js';
+import { authService } from '../services/auth.js';
 
 const CartContext = createContext();
 
 const cartReducer = (state, action) => {
   switch (action.type) {
+    case 'SET_CART':
+      return { ...state, items: action.payload };
+
     case 'ADD_ITEM':
       const existingItem = state.items.find(item => item.id === action.payload.id);
       
@@ -82,10 +87,135 @@ export const CartProvider = ({ children }) => {
     storage.set('cart', state.items);
   }, [state.items]);
 
-  const addItem = (product) => dispatch({ type: 'ADD_ITEM', payload: product });
-  const removeItem = (id) => dispatch({ type: 'REMOVE_ITEM', payload: id });
-  const updateQuantity = (id, quantity) => dispatch({ type: 'UPDATE_QUANTITY', payload: { id, quantity } });
-  const clearCart = () => dispatch({ type: 'CLEAR_CART' });
+  // Helper: map backend cart_items to frontend items
+  const mapBackendCart = (cartItems = []) => {
+    return cartItems.map(ci => {
+      const product = ci.products || {};
+      return {
+        id: product.id,
+        cartItemId: ci.id,
+        title: product.title,
+        price: parseFloat(product.price || 0),
+        stock: product.stock || 0,
+        images: product.images || [],
+        quantity: ci.quantity
+      };
+    });
+  };
+
+  // On mount - if authenticated, fetch cart from backend
+  useEffect(() => {
+    let mounted = true;
+
+    const loadCart = async () => {
+      if (authService.isAuthenticated()) {
+        try {
+          const data = await apiService.getCart();
+          // backend returns { cartItems }
+          const items = mapBackendCart(data.cartItems || []);
+          if (mounted) dispatch({ type: 'SET_CART', payload: items });
+        } catch (err) {
+          console.error('Failed to load cart from backend:', err);
+        }
+      }
+    };
+
+    loadCart();
+
+    // Listen for auth changes (login/logout)
+    const handler = async (e) => {
+      if (e.detail && e.detail.isAuthenticated) {
+        try {
+          const data = await apiService.getCart();
+          const items = mapBackendCart(data.cartItems || []);
+          dispatch({ type: 'SET_CART', payload: items });
+        } catch (err) {
+          console.error('Failed to load cart after auth change:', err);
+        }
+      } else {
+        // logged out -> keep local storage cart (already loaded)
+      }
+    };
+
+    window.addEventListener('authChange', handler);
+
+    return () => {
+      mounted = false;
+      window.removeEventListener('authChange', handler);
+    };
+  }, []);
+
+  const addItem = async (product) => {
+    if (authService.isAuthenticated()) {
+      try {
+        await apiService.addToCart(product.id, product.quantity || 1);
+        const data = await apiService.getCart();
+        const items = mapBackendCart(data.cartItems || []);
+        dispatch({ type: 'SET_CART', payload: items });
+        return;
+      } catch (err) {
+        toastEmitter.emit(err.message || 'Failed to add item', 'error');
+        return;
+      }
+    }
+
+    dispatch({ type: 'ADD_ITEM', payload: product });
+  };
+
+  const removeItem = async (id) => {
+    if (authService.isAuthenticated()) {
+      try {
+        const existing = state.items.find(i => i.id === id);
+        if (existing && existing.cartItemId) {
+          await apiService.removeFromCart(existing.cartItemId);
+          const data = await apiService.getCart();
+          const items = mapBackendCart(data.cartItems || []);
+          dispatch({ type: 'SET_CART', payload: items });
+          return;
+        }
+      } catch (err) {
+        toastEmitter.emit(err.message || 'Failed to remove item', 'error');
+        return;
+      }
+    }
+
+    dispatch({ type: 'REMOVE_ITEM', payload: id });
+  };
+
+  const updateQuantity = async (id, quantity) => {
+    if (authService.isAuthenticated()) {
+      try {
+        const existing = state.items.find(i => i.id === id);
+        if (existing && existing.cartItemId) {
+          await apiService.updateCartItem(existing.cartItemId, quantity);
+          const data = await apiService.getCart();
+          const items = mapBackendCart(data.cartItems || []);
+          dispatch({ type: 'SET_CART', payload: items });
+          return;
+        }
+      } catch (err) {
+        toastEmitter.emit(err.message || 'Failed to update quantity', 'error');
+        return;
+      }
+    }
+
+    dispatch({ type: 'UPDATE_QUANTITY', payload: { id, quantity } });
+  };
+
+  const clearCart = async () => {
+    if (authService.isAuthenticated()) {
+      try {
+        await apiService.clearCart();
+        dispatch({ type: 'CLEAR_CART' });
+        return;
+      } catch (err) {
+        toastEmitter.emit(err.message || 'Failed to clear cart', 'error');
+        return;
+      }
+    }
+
+    dispatch({ type: 'CLEAR_CART' });
+  };
 
   const totalItems = state.items.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = state.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
