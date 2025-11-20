@@ -84,6 +84,14 @@ class ApiService {
       method: 'DELETE'
     });
   }
+
+  // Products (backend) - fetches from /api/products
+  // Accepts an optional params object e.g. { page, limit, search, category }
+  async getProducts(params = {}) {
+    const qs = new URLSearchParams(params).toString();
+    const endpoint = `/products${qs ? `?${qs}` : ''}`;
+    return this.request(endpoint);
+  }
 }
 
 export const apiService = new ApiService();

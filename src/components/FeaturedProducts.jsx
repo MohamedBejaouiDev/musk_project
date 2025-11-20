@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Star, ShoppingCart, Loader2 } from 'lucide-react';
 import { useCart } from '../state/CartContext';
-import { getProducts } from '../services/products';
+import { apiService } from '../services/api';
 
 export const FeaturedProducts = ({ title, filter }) => {
   const [products, setProducts] = useState([]);
@@ -14,7 +14,9 @@ export const FeaturedProducts = ({ title, filter }) => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const data = await getProducts();
+        // Call backend API: returns { products, pagination }
+        const res = await apiService.getProducts({ limit: 50 });
+        const data = res.products || [];
         let filtered = data;
         
         if (filter === 'featured') {
@@ -27,7 +29,13 @@ export const FeaturedProducts = ({ title, filter }) => {
           filtered = data.slice(0, 8);
         }
         
-        setProducts(filtered);
+        // Ensure images exist and are arrays (from DB images TEXT[])
+        const normalized = filtered.map(p => ({
+          ...p,
+          images: Array.isArray(p.images) ? p.images : (p.images ? [p.images] : [])
+        }));
+
+        setProducts(normalized);
       } catch (error) {
         console.error('Error fetching products:', error);
       } finally {
