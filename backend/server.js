@@ -12,6 +12,12 @@ import orderRoutes from './routes/orders.js';
 
 dotenv.config();
 
+// Ensure critical secrets are present
+if (!process.env.JWT_SECRET) {
+  console.error('FATAL: JWT_SECRET is not set. Set JWT_SECRET in backend/.env');
+  process.exit(1);
+}
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 

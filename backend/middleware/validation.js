@@ -44,3 +44,13 @@ export const productSchema = Joi.object({
     concentration: Joi.string().required()
   }).required()
 });
+
+// Cart schemas
+export const cartAddSchema = Joi.object({
+  productId: Joi.number().integer().positive().required(),
+  quantity: Joi.number().integer().min(1).default(1)
+});
+
+export const cartUpdateSchema = Joi.object({
+  quantity: Joi.number().integer().min(1).required()
+});
