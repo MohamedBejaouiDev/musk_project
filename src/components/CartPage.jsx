@@ -182,7 +182,7 @@ export const CartPage = () => {
                   className="bg-white rounded-lg shadow p-6"
                 >
                   <div className="flex gap-6">
-                    <img src={item.image} alt={item.title} className="w-24 h-24 object-cover rounded-lg" />
+                    <img src={item.image || (item.images && item.images[0])} alt={item.title} className="w-24 h-24 object-cover rounded-lg" />
                     <div className="flex-1">
                       <div className="flex justify-between items-start mb-2">
                         <div>

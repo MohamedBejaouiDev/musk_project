@@ -91,13 +91,16 @@ export const CartProvider = ({ children }) => {
   const mapBackendCart = (cartItems = []) => {
     return cartItems.map(ci => {
       const product = ci.products || {};
+      const imgs = Array.isArray(product.images) ? product.images : (product.images ? [product.images] : []);
       return {
         id: product.id,
         cartItemId: ci.id,
         title: product.title,
+        brand: product.brand,
         price: parseFloat(product.price || 0),
         stock: product.stock || 0,
-        images: product.images || [],
+        images: imgs,
+        image: imgs[0] || '',
         quantity: ci.quantity
       };
     });

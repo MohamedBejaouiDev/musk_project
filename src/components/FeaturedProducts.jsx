@@ -29,11 +29,25 @@ export const FeaturedProducts = ({ title, filter }) => {
           filtered = data.slice(0, 8);
         }
         
-        // Ensure images exist and are arrays (from DB images TEXT[])
-        const normalized = filtered.map(p => ({
-          ...p,
-          images: Array.isArray(p.images) ? p.images : (p.images ? [p.images] : [])
-        }));
+        // Normalize product fields coming from backend:
+        // - images: ensure array
+        // - rating: map rating_average & rating_count to nested object used by UI
+        // - price/stock: ensure numeric
+        const normalized = filtered.map(p => {
+          const images = Array.isArray(p.images) ? p.images : (p.images ? [p.images] : []);
+          const ratingAverage = p.rating_average !== undefined ? parseFloat(p.rating_average) : (p.rating?.average ? parseFloat(p.rating.average) : 0);
+          const ratingCount = p.rating_count !== undefined ? p.rating_count : (p.rating?.count || 0);
+          return {
+            ...p,
+            images,
+            rating: {
+              average: isNaN(ratingAverage) ? 0 : ratingAverage,
+              count: ratingCount
+            },
+            price: typeof p.price === 'string' ? parseFloat(p.price) : (p.price || 0),
+            stock: p.stock || 0
+          };
+        });
 
         setProducts(normalized);
       } catch (error) {
