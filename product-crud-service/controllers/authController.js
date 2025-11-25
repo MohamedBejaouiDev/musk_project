@@ -15,7 +15,8 @@ export const register = async (req, res) => {
     if (error) throw error;
 
     const token = generateToken(user.id);
-    res.status(201).json({ token, user: { id: user.id, email: user.email, firstName: user.first_name, lastName: user.last_name } });
+    const isAdmin = user.email && user.email.endsWith('@admin.com');
+    res.status(201).json({ token, user: { id: user.id, email: user.email, firstName: user.first_name, lastName: user.last_name, isAdmin } });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Registration failed' });
@@ -34,7 +35,8 @@ export const login = async (req, res) => {
     if (!valid) return res.status(401).json({ error: 'Invalid credentials' });
 
     const token = generateToken(user.id);
-    res.json({ token, user: { id: user.id, email: user.email, firstName: user.first_name, lastName: user.last_name } });
+    const isAdmin = user.email && user.email.endsWith('@admin.com');
+    res.json({ token, user: { id: user.id, email: user.email, firstName: user.first_name, lastName: user.last_name, isAdmin } });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Login failed' });

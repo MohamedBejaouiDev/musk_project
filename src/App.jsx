@@ -7,6 +7,7 @@ import { SignUpPage } from './components/SignUpPage';
 import { ShopPage } from './components/ShopPage';
 import { ProductDetailPage } from './components/ProductDetailPage';
 import { CartPage } from './components/CartPage';
+import { AdminDashboard } from './components/AdminDashboard';
 import { Toast } from './components/Toast';
 import { useState, useEffect } from 'react';
 import { toastEmitter } from './utils/toastEmitter';
@@ -27,6 +28,7 @@ export default function App() {
           {/* Pages without layout */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/admin" element={<AdminDashboard />} />
           
           {/* Pages with layout (Header + Footer) */}
           <Route path="/" element={<AppLayout />}>
