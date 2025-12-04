@@ -60,3 +60,20 @@ export const usersApi = {
     return apiRequest(`/users/${id}`, { method: 'DELETE' });
   }
 };
+
+export const ordersApi = {
+  async list(params = {}) {
+    const qs = new URLSearchParams(params).toString();
+    return apiRequest(`/orders${qs ? `?${qs}` : ''}`);
+  },
+  async getAnalytics(params = {}) {
+    const qs = new URLSearchParams(params).toString();
+    return apiRequest(`/orders/analytics${qs ? `?${qs}` : ''}`);
+  },
+  async get(id) {
+    return apiRequest(`/orders/${id}`);
+  },
+  async updateStatus(id, status) {
+    return apiRequest(`/orders/${id}/status`, { method: 'PATCH', body: { status } });
+  }
+};

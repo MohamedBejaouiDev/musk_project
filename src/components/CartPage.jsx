@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useCart } from '../state/CartContext';
 import { useState } from 'react';
 import { Toast } from './Toast';
+import { createOrder } from '../services/orders';
 
 export const CartPage = () => {
   const { items, removeItem, updateQuantity, clearCart, totalPrice } = useCart();
@@ -34,12 +35,48 @@ export const CartPage = () => {
     setIsCheckingOut(true);
   };
 
-  const handlePayment = (e) => {
+  const handlePayment = async (e) => {
     e.preventDefault();
-    setToast({ message: 'Payment successful! Order placed.', type: 'success' });
-    clearCart(); // Far'gh el panier
-    setIsCheckingOut(false);
-    setTimeout(() => navigate('/'), 1000);
+    
+    try {
+      // Get current user
+      let currentUser = null;
+      try {
+        currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+      } catch (error) {
+        console.error('Error parsing user data:', error);
+      }
+
+      // Prepare order data
+      const orderData = {
+        user: currentUser ? {
+          id: currentUser.email, // Using email as ID since we're using localStorage
+          email: currentUser.email,
+          firstName: currentUser.firstName,
+          lastName: currentUser.lastName
+        } : null,
+        items: items.map(item => ({
+          id: item.id,
+          title: item.title,
+          price: item.price,
+          quantity: item.quantity,
+          brand: item.brand
+        })),
+        total: totalPrice,
+        shippingAddress: currentUser?.address || ''
+      };
+
+      // Save order to database
+      await createOrder(orderData);
+
+      setToast({ message: 'Payment successful! Order placed.', type: 'success' });
+      clearCart(); // Clear the cart
+      setIsCheckingOut(false);
+      setTimeout(() => navigate('/'), 1500);
+    } catch (error) {
+      console.error('Order creation failed:', error);
+      setToast({ message: 'Order failed. Please try again.', type: 'error' });
+    }
   };
 
   if (isCheckingOut) {

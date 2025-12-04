@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/auth.js';
 import productRoutes from './routes/products.js';
 import userRoutes from './routes/users.js';
+import orderRoutes from './routes/orders.js';
 
 dotenv.config();
 
@@ -54,6 +55,7 @@ app.get('/health', (req, res) => res.json({ status: 'OK' }));
 app.use('/auth', authRoutes);
 app.use('/products', productRoutes);
 app.use('/users', userRoutes);
+app.use('/orders', orderRoutes);
 
 app.listen(PORT, () => {
   console.log(`Product CRUD service listening on ${PORT}`);

@@ -311,15 +311,22 @@ function TableRow({ product, onEdit, onPromo, onDelete }) {
     <tr className="hover:bg-gray-50 transition-colors duration-150">
       <td className="px-4 py-3">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-center overflow-hidden">
-            {product.images?.[0] ? (
-              <img 
-                src={product.images[0]} 
-                alt={product.title} 
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <Package className="text-gray-400" size={24} />
+          <div className="relative">
+            <div className="w-12 h-12 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-center overflow-hidden">
+              {product.images?.[0] ? (
+                <img 
+                  src={product.images[0]} 
+                  alt={product.title} 
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <Package className="text-gray-400" size={24} />
+              )}
+            </div>
+            {product.images && product.images.length > 1 && (
+              <span className="absolute -top-1 -right-1 bg-[#AF8D64] text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-sm">
+                {product.images.length}
+              </span>
             )}
           </div>
           <div className="min-w-0 flex-1">
@@ -452,6 +459,22 @@ function ProductModal({ product, onClose, onSave, showToast }) {
     specs: { topNotes: [''], heartNotes: [''], baseNotes: [''], sizeMl: 50, concentration: 'EDP' }
   });
 
+  const addImageField = () => {
+    setFormData({ ...formData, images: [...formData.images, ''] });
+  };
+
+  const removeImageField = (index) => {
+    if (formData.images.length <= 1) return;
+    const newImages = formData.images.filter((_, i) => i !== index);
+    setFormData({ ...formData, images: newImages });
+  };
+
+  const updateImageField = (index, value) => {
+    const newImages = [...formData.images];
+    newImages[index] = value;
+    setFormData({ ...formData, images: newImages });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -526,14 +549,50 @@ function ProductModal({ product, onClose, onSave, showToast }) {
           />
         </div>
 
-        <FormField
-          label="Image URL"
-          type="url"
-          value={formData.images[0]}
-          onChange={(value) => setFormData({ ...formData, images: [value] })}
-          required
-          placeholder="https://example.com/image.jpg"
-        />
+        {/* Multiple Image URLs Section */}
+        <div>
+          <div className="flex items-center justify-between mb-3">
+            <label className="block text-sm font-semibold text-gray-700">Product Images</label>
+            <button
+              type="button"
+              onClick={addImageField}
+              className="flex items-center gap-2 px-4 py-2 text-sm bg-[#AF8D64] text-white rounded-lg hover:bg-[#9a7a50] transition-colors duration-200"
+            >
+              <Plus size={16} /> Add Image
+            </button>
+          </div>
+          <div className="space-y-3">
+            {formData.images.map((img, index) => (
+              <div key={index} className="flex gap-2 items-start">
+                <div className="flex-1">
+                  <input
+                    type="url"
+                    value={img}
+                    onChange={(e) => updateImageField(index, e.target.value)}
+                    placeholder={`Image URL ${index + 1}`}
+                    required={index === 0}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#AF8D64] focus:ring-2 focus:ring-[#AF8D64]/20 bg-gray-50"
+                  />
+                  {img && (
+                    <div className="mt-2">
+                      <img src={img} alt={`Preview ${index + 1}`} className="h-20 w-20 object-cover rounded-lg border border-gray-200" onError={(e) => e.target.style.display = 'none'} />
+                    </div>
+                  )}
+                </div>
+                {formData.images.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => removeImageField(index)}
+                    className="p-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200 border border-transparent hover:border-red-200"
+                    title="Remove image"
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
 
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-2">Description</label>
