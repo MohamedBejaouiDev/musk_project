@@ -106,20 +106,20 @@ export const CartProvider = ({ children }) => {
     });
   };
 
-  // On mount - if authenticated, fetch cart from backend
+  // On mount - load cart from localStorage
   useEffect(() => {
     let mounted = true;
 
     const loadCart = async () => {
-      if (authService.isAuthenticated()) {
-        try {
-          const data = await apiService.getCart();
-          // backend returns { cartItems }
-          const items = mapBackendCart(data.cartItems || []);
-          if (mounted) dispatch({ type: 'SET_CART', payload: items });
-        } catch (err) {
-          console.error('Failed to load cart from backend:', err);
+      try {
+        // Load from localStorage instead of backend
+        const saved = localStorage.getItem('cart');
+        if (saved && mounted) {
+          const items = JSON.parse(saved);
+          dispatch({ type: 'SET_CART', payload: items });
         }
+      } catch (err) {
+        console.error('Failed to load cart:', err);
       }
     };
 
@@ -149,75 +149,26 @@ export const CartProvider = ({ children }) => {
   }, []);
 
   const addItem = async (product) => {
-    if (authService.isAuthenticated()) {
-      try {
-        await apiService.addToCart(product.id, product.quantity || 1);
-        const data = await apiService.getCart();
-        const items = mapBackendCart(data.cartItems || []);
-        dispatch({ type: 'SET_CART', payload: items });
-        return;
-      } catch (err) {
-        toastEmitter.emit(err.message || 'Failed to add item', 'error');
-        return;
-      }
-    }
-
+    // Always use local cart (localStorage) - backend cart endpoints don't exist
     dispatch({ type: 'ADD_ITEM', payload: product });
+    toastEmitter.emit('Item added to cart!', 'success');
   };
 
   const removeItem = async (id) => {
-    if (authService.isAuthenticated()) {
-      try {
-        const existing = state.items.find(i => i.id === id);
-        if (existing && existing.cartItemId) {
-          await apiService.removeFromCart(existing.cartItemId);
-          const data = await apiService.getCart();
-          const items = mapBackendCart(data.cartItems || []);
-          dispatch({ type: 'SET_CART', payload: items });
-          return;
-        }
-      } catch (err) {
-        toastEmitter.emit(err.message || 'Failed to remove item', 'error');
-        return;
-      }
-    }
-
+    // Always use local cart (localStorage)
     dispatch({ type: 'REMOVE_ITEM', payload: id });
+    toastEmitter.emit('Item removed from cart', 'success');
   };
 
   const updateQuantity = async (id, quantity) => {
-    if (authService.isAuthenticated()) {
-      try {
-        const existing = state.items.find(i => i.id === id);
-        if (existing && existing.cartItemId) {
-          await apiService.updateCartItem(existing.cartItemId, quantity);
-          const data = await apiService.getCart();
-          const items = mapBackendCart(data.cartItems || []);
-          dispatch({ type: 'SET_CART', payload: items });
-          return;
-        }
-      } catch (err) {
-        toastEmitter.emit(err.message || 'Failed to update quantity', 'error');
-        return;
-      }
-    }
-
+    // Always use local cart (localStorage)
     dispatch({ type: 'UPDATE_QUANTITY', payload: { id, quantity } });
   };
 
   const clearCart = async () => {
-    if (authService.isAuthenticated()) {
-      try {
-        await apiService.clearCart();
-        dispatch({ type: 'CLEAR_CART' });
-        return;
-      } catch (err) {
-        toastEmitter.emit(err.message || 'Failed to clear cart', 'error');
-        return;
-      }
-    }
-
+    // Always use local cart (localStorage)
     dispatch({ type: 'CLEAR_CART' });
+    toastEmitter.emit('Cart cleared', 'success');
   };
 
   const totalItems = state.items.reduce((sum, item) => sum + item.quantity, 0);

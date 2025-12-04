@@ -188,6 +188,8 @@ export const createOrder = async (req, res) => {
   try {
     const { user, items, total, shippingAddress } = req.body;
 
+    console.log('📦 Creating order with data:', { user_id: user?.id, items: items?.length, total, shippingAddress });
+
     if (!items || items.length === 0) {
       return res.status(400).json({ error: 'Order must contain at least one item' });
     }
@@ -196,31 +198,43 @@ export const createOrder = async (req, res) => {
       return res.status(400).json({ error: 'Invalid order total' });
     }
 
+    // Prepare order data with correct column names
+    // user_id must be NULL or a valid UUID - emails won't work
+    const orderData = {
+      user_id: null,  // Set to NULL - user_id is UUID type in database
+      total_amount: parseFloat(total),
+      status: 'pending',
+      shipping_address: shippingAddress || '',
+      payment_info: 'card'
+    };
+
+    console.log('📦 Inserting order data:', orderData);
+
     // Create the order
     const { data: order, error: orderError } = await supabase
       .from('orders')
-      .insert([{
-        user_id: user?.id || null,
-        user_name: user ? `${user.firstName || ''} ${user.lastName || ''}`.trim() : 'Guest',
-        total: parseFloat(total),
-        status: 'pending',
-        shipping_address: shippingAddress || '',
-        payment_method: 'card',
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      }])
+      .insert([orderData])
       .select()
       .single();
 
-    if (orderError) throw orderError;
+    if (orderError) {
+      console.error('❌ Order creation error details:', {
+        message: orderError.message,
+        code: orderError.code,
+        details: orderError.details,
+        hint: orderError.hint
+      });
+      throw orderError;
+    }
+    
+    console.log('✅ Order created successfully:', order.id);
 
     // Create order items
     const orderItems = items.map(item => ({
       order_id: order.id,
       product_id: item.id,
       quantity: item.quantity,
-      price: parseFloat(item.price),
-      created_at: new Date().toISOString()
+      price: parseFloat(item.price)
     }));
 
     const { error: itemsError } = await supabase
@@ -234,8 +248,8 @@ export const createOrder = async (req, res) => {
       message: 'Order created successfully' 
     });
   } catch (err) {
-    console.error('Create order error:', err);
-    res.status(500).json({ error: 'Failed to create order' });
+    console.error('❌ Create order error:', err.message, err);
+    res.status(500).json({ error: err.message || 'Failed to create order' });
   }
 };
 

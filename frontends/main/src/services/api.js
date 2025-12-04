@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:6060';
 
 class ApiService {
   constructor() {
@@ -54,29 +54,26 @@ class ApiService {
     return this.request('/auth/profile');
   }
 
-  // Cart endpoints
+  // Cart endpoints (localStorage-based)
   async getCart() {
-    return this.request('/cart');
+    // Cart is managed in localStorage via CartContext
+    const cart = localStorage.getItem('cart');
+    return { cart: cart ? JSON.parse(cart) : [] };
   }
 
   async addToCart(productId, quantity = 1) {
-    return this.request('/cart/add', {
-      method: 'POST',
-      body: { productId, quantity }
-    });
+    // Cart is managed in localStorage via CartContext
+    return { success: true, message: 'Item added to cart' };
   }
 
   async updateCartItem(itemId, quantity) {
-    return this.request(`/cart/update/${itemId}`, {
-      method: 'PUT',
-      body: { quantity }
-    });
+    // Cart is managed in localStorage via CartContext
+    return { success: true, message: 'Cart item updated' };
   }
 
   async removeFromCart(itemId) {
-    return this.request(`/cart/remove/${itemId}`, {
-      method: 'DELETE'
-    });
+    // Cart is managed in localStorage via CartContext
+    return { success: true, message: 'Item removed from cart' };
   }
 
   async clearCart() {

@@ -52,6 +52,28 @@ app.get('/', (req, res) => {
 
 app.get('/health', (req, res) => res.json({ status: 'OK' }));
 
+app.get('/debug/orders-schema', async (req, res) => {
+  try {
+    // Try to fetch one order to see the schema
+    const { data, error } = await (await import('./config/database.js')).supabase
+      .from('orders')
+      .select()
+      .limit(1);
+    
+    if (error) {
+      return res.json({ error: error.message });
+    }
+    
+    res.json({ 
+      success: true,
+      sample: data?.[0] || null,
+      columns: data?.[0] ? Object.keys(data[0]) : []
+    });
+  } catch (e) {
+    res.json({ error: e.message });
+  }
+});
+
 app.use('/auth', authRoutes);
 app.use('/products', productRoutes);
 app.use('/users', userRoutes);

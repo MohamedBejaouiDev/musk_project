@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_ADMIN_API_URL || 'http://localhost:6000';
+const API_BASE_URL = import.meta.env.VITE_ADMIN_API_URL || 'http://localhost:6060';
 
 const getToken = () => localStorage.getItem('adminToken') || localStorage.getItem('token');
 
