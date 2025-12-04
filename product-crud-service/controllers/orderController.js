@@ -30,10 +30,10 @@ export const getAnalytics = async (req, res) => {
     const start = startDate || new Date(new Date().setDate(new Date().getDate() - 30)).toISOString();
     const end = endDate || new Date().toISOString();
 
-    // Get orders from database
+    // Get orders from database (do not rely on orders.total)
     const { data: orders, error: ordersError } = await supabase
       .from('orders')
-      .select('id, total, created_at, status, user_email')
+      .select('id, created_at, status, user_id')
       .gte('created_at', start)
       .lte('created_at', end);
 
@@ -53,11 +53,32 @@ export const getAnalytics = async (req, res) => {
       });
     }
 
+    // Fetch order items for the retrieved orders and compute totals from items
+    const orderIds = orders.map(o => o.id);
+    let orderItems = [];
+    if (orderIds.length > 0) {
+      const { data: itemsData, error: itemsErr } = await supabase
+        .from('order_items')
+        .select('order_id, product_id, quantity, price, products(title, brand, price, images)')
+        .in('order_id', orderIds);
+
+      if (!itemsErr && itemsData) {
+        orderItems = itemsData;
+      }
+    }
+
+    // Compute revenue per order
+    const revenueByOrder = {};
+    orderItems.forEach(item => {
+      const amount = (parseFloat(item.price) || 0) * (item.quantity || 0);
+      revenueByOrder[item.order_id] = (revenueByOrder[item.order_id] || 0) + amount;
+    });
+
     // Calculate metrics
-    const totalRevenue = orders.reduce((sum, o) => sum + (parseFloat(o.total) || 0), 0);
+    const totalRevenue = Object.values(revenueByOrder).reduce((sum, v) => sum + v, 0);
     const totalOrders = orders.length;
     const completedOrders = orders.filter(o => o.status === 'completed' || o.status === 'delivered' || o.status === 'pending').length;
-    const uniqueCustomers = new Set(orders.map(o => o.user_email).filter(Boolean)).size;
+    const uniqueCustomers = new Set(orders.map(o => o.user_id).filter(Boolean)).size;
 
     // Sales by day (last 30 days)
     const salesByDay = {};
@@ -66,7 +87,8 @@ export const getAnalytics = async (req, res) => {
       if (!salesByDay[date]) {
         salesByDay[date] = { date, revenue: 0, orders: 0 };
       }
-      salesByDay[date].revenue += order.total || 0;
+      const orderRevenue = revenueByOrder[order.id] || 0;
+      salesByDay[date].revenue += orderRevenue;
       salesByDay[date].orders += 1;
     });
 
@@ -74,17 +96,9 @@ export const getAnalytics = async (req, res) => {
       new Date(a.date) - new Date(b.date)
     );
 
-    // Top products (from order items)
-    const { data: orderItems, error: itemsError } = await supabase
-      .from('order_items')
-      .select('product_id, quantity, products(title, brand, price, images)')
-      .gte('created_at', start)
-      .lte('created_at', end);
-
+    // Top products (use the already-fetched orderItems if available)
     let topProducts = [];
-    
-    // If order_items table doesn't exist or query fails, use empty array
-    if (!itemsError && orderItems) {
+    if (orderItems && orderItems.length > 0) {
       const productSales = {};
       orderItems.forEach(item => {
         const pid = item.product_id;
@@ -187,7 +201,6 @@ export const createOrder = async (req, res) => {
       .from('orders')
       .insert([{
         user_id: user?.id || null,
-        user_email: user?.email || 'guest@example.com',
         user_name: user ? `${user.firstName || ''} ${user.lastName || ''}`.trim() : 'Guest',
         total: parseFloat(total),
         status: 'pending',
@@ -229,12 +242,12 @@ export const createOrder = async (req, res) => {
 // Get orders for a specific user (public - by email)
 export const getUserOrders = async (req, res) => {
   try {
-    const { email } = req.params;
+    const { id } = req.params;
 
     const { data: orders, error } = await supabase
       .from('orders')
       .select('*, order_items(*, products(title, brand, images))')
-      .eq('user_email', email)
+      .eq('user_id', id)
       .order('created_at', { ascending: false });
 
     if (error) throw error;

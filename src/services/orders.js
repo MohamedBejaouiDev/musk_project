@@ -24,9 +24,9 @@ export async function createOrder(orderData) {
   }
 }
 
-export async function getUserOrders(userEmail) {
+export async function getUserOrders(userId) {
   try {
-    const response = await fetch(`${API_BASE_URL}/orders/user/${encodeURIComponent(userEmail)}`);
+    const response = await fetch(`${API_BASE_URL}/orders/user/${encodeURIComponent(userId)}`);
     const data = await response.json();
     
     if (!response.ok) {

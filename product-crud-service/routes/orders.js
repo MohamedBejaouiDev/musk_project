@@ -6,7 +6,7 @@ const router = express.Router();
 
 // Public routes (no authentication required)
 router.post('/create', createOrder);
-router.get('/user/:email', getUserOrders);
+router.get('/user/:id', getUserOrders);
 
 // Admin routes (require authentication)
 router.get('/', authenticateToken, requireAdmin, listOrders);

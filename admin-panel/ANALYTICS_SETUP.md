@@ -7,7 +7,7 @@ The system is now fully integrated to save **real orders** from the main website
 1. ✅ Order creation API endpoints added
 2. ✅ Main website checkout saves orders automatically
 3. ✅ Analytics shows real data (no more mock data)
-4. ✅ Order tracking by customer email
+4. ✅ Order tracking by customer ID (no email column required)
 
 ## Database Setup (One-Time)
 
@@ -19,32 +19,31 @@ The system is now fully integrated to save **real orders** from the main website
 4. Copy and paste this SQL:
 
 ```sql
--- Create orders table
+-- Create orders table (no email column)
 CREATE TABLE IF NOT EXISTS orders (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id VARCHAR(255),
-  user_email VARCHAR(255),
-  user_name VARCHAR(255),
-  total DECIMAL(10, 2) NOT NULL,
-  status VARCHAR(50) DEFAULT 'pending',
-  shipping_address TEXT,
-  payment_method VARCHAR(50) DEFAULT 'card',
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
+   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+   user_id VARCHAR(255),
+   user_name VARCHAR(255),
+   total DECIMAL(10, 2) NOT NULL,
+   status VARCHAR(50) DEFAULT 'pending',
+   shipping_address TEXT,
+   payment_method VARCHAR(50) DEFAULT 'card',
+   created_at TIMESTAMPTZ DEFAULT NOW(),
+   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- Create order_items table
 CREATE TABLE IF NOT EXISTS order_items (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  order_id UUID REFERENCES orders(id) ON DELETE CASCADE,
-  product_id INTEGER REFERENCES products(id) ON DELETE SET NULL,
-  quantity INTEGER NOT NULL,
-  price DECIMAL(10, 2) NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT NOW()
+   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+   order_id UUID REFERENCES orders(id) ON DELETE CASCADE,
+   product_id INTEGER REFERENCES products(id) ON DELETE SET NULL,
+   quantity INTEGER NOT NULL,
+   price DECIMAL(10, 2) NOT NULL,
+   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- Create indexes for performance
-CREATE INDEX IF NOT EXISTS idx_orders_user_email ON orders(user_email);
+CREATE INDEX IF NOT EXISTS idx_orders_user_id ON orders(user_id);
 CREATE INDEX IF NOT EXISTS idx_orders_created_at ON orders(created_at);
 CREATE INDEX IF NOT EXISTS idx_orders_status ON orders(status);
 CREATE INDEX IF NOT EXISTS idx_order_items_order_id ON order_items(order_id);
@@ -103,7 +102,7 @@ CREATE INDEX IF NOT EXISTS idx_order_items_product_id ON order_items(product_id)
 
 ### Public (Main Website):
 - `POST /orders/create` - Create new order from checkout
-- `GET /orders/user/:email` - Get user's order history
+- `GET /orders/user/:id` - Get user's order history (by user_id)
 
 ### Admin Only:
 - `GET /orders` - List all orders
