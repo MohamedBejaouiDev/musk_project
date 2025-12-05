@@ -19,12 +19,12 @@ if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) {
 const allowedOrigins = [
   process.env.FRONTEND_URL || 'http://localhost:5173',
   process.env.ADMIN_PANEL_URL || 'http://localhost:5174',
-  'http://localhost:5175' // Fallback if 5174 is in use
+  'http://localhost:5175' 
 ];
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps or Postman)
+    // Allow requests with no origin 
     if (!origin) return callback(null, true);
     
     // Check if origin matches any allowed origins
