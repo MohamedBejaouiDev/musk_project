@@ -4,6 +4,15 @@ import { Plus, Edit, Trash2, Tag, Search, X, Package, Filter, TrendingUp, AlertT
 import { productsApi } from '../services/api.js';
 import Sidebar from '../components/Sidebar.jsx';
 
+const CATEGORY_OPTIONS = [
+  { id: 1, name: 'Floral' },
+  { id: 2, name: 'Woody' },
+  { id: 3, name: 'Fresh' },
+  { id: 4, name: 'Oriental' },
+  { id: 5, name: 'Gourmand' },
+  { id: 6, name: 'Citrus' }
+];
+
 export default function Dashboard() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -454,7 +463,7 @@ function Toast({ message, type, onClose }) {
 // Enhanced ProductModal
 function ProductModal({ product, onClose, onSave, showToast }) {
   const [formData, setFormData] = useState(product || {
-    title: '', brand: '', category_id: 1, price: '', discount: 0, badge: '', stock: 0,
+    title: '', brand: '', category_id: CATEGORY_OPTIONS[0].id, price: '', discount: 0, badge: '', stock: 0,
     images: [''], description: '', 
     specs: { topNotes: [''], heartNotes: [''], baseNotes: [''], sizeMl: 50, concentration: 'EDP' }
   });
@@ -478,18 +487,47 @@ function ProductModal({ product, onClose, onSave, showToast }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const payload = { 
-        ...formData, 
+      const price = Number(formData.price);
+      const stock = Number(formData.stock);
+      const discount = formData.discount === '' ? 0 : Number(formData.discount);
+      if (!Number.isFinite(price) || price <= 0) {
+        showToast('Price must be greater than 0', 'error');
+        return;
+      }
+      if (!Number.isFinite(stock) || stock < 0) {
+        showToast('Stock must be zero or more', 'error');
+        return;
+      }
+      if (!Number.isFinite(discount) || discount < 0 || discount > 100) {
+        showToast('Discount must be between 0 and 100', 'error');
+        return;
+      }
+
+      const cleanNotes = (notes) => (notes || []).map((n) => n.trim()).filter(Boolean);
+
+      const basePayload = {
+        title: formData.title,
+        brand: formData.brand,
+        category_id: formData.category_id,
+        price,
+        stock,
+        discount,
+        badge: formData.badge || null,
         images: formData.images.filter(Boolean),
-        price: parseFloat(formData.price),
-        stock: parseInt(formData.stock),
-        discount: parseInt(formData.discount)
+        description: formData.description,
+        specs: {
+          topNotes: cleanNotes(formData.specs?.topNotes),
+          heartNotes: cleanNotes(formData.specs?.heartNotes),
+          baseNotes: cleanNotes(formData.specs?.baseNotes),
+          sizeMl: Number(formData.specs?.sizeMl) || 50,
+          concentration: formData.specs?.concentration || 'EDP'
+        }
       };
-      
+
       if (product) {
-        await productsApi.update(product.id, payload);
+        await productsApi.update(product.id, basePayload);
       } else {
-        await productsApi.create(payload);
+        await productsApi.create(basePayload);
       }
       onSave();
       onClose();
@@ -614,13 +652,21 @@ function ProductModal({ product, onClose, onSave, showToast }) {
             onChange={(value) => setFormData({ ...formData, badge: value })}
             placeholder="e.g. Best Seller, New Arrival"
           />
-          <FormField
-            label="Category ID"
-            type="number"
-            value={formData.category_id}
-            onChange={(value) => setFormData({ ...formData, category_id: Number(value) })}
-            required
-          />
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Category <span className="text-red-500">*</span>
+            </label>
+            <select
+              value={formData.category_id}
+              onChange={(e) => setFormData({ ...formData, category_id: Number(e.target.value) })}
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#AF8D64] focus:ring-2 focus:ring-[#AF8D64]/20 bg-gray-50 appearance-none"
+              required
+            >
+              {CATEGORY_OPTIONS.map((option) => (
+                <option key={option.id} value={option.id}>{option.name}</option>
+              ))}
+            </select>
+          </div>
         </div>
 
         <div className="flex gap-4 pt-6 border-t border-gray-200">

@@ -5,6 +5,16 @@ import { Star, ShoppingCart, Loader2 } from 'lucide-react';
 import { useCart } from '../state/CartContext';
 import { apiService } from '../services/api';
 
+// Fisher-Yates shuffle for true randomization
+const shuffleArray = (array) => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
 export const FeaturedProducts = ({ title, filter }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,19 +25,33 @@ export const FeaturedProducts = ({ title, filter }) => {
       try {
         setLoading(true);
         // Call backend API: returns { products, pagination }
-        const res = await apiService.getProducts({ limit: 50 });
+        const res = await apiService.getProducts({ limit: 100 });
         const data = res.products || [];
         let filtered = data;
         
+        // Filter by category/type, not limited by badge availability
         if (filter === 'featured') {
-          filtered = data.filter(p => p.badge === 'Best Seller').slice(0, 8);
+          // Featured: show products with Best Seller badge, or top rated if not enough
+          filtered = data.filter(p => p.badge === 'Best Seller');
+          if (filtered.length < 5) {
+            filtered = [...data].sort((a, b) => (b.rating?.average || 0) - (a.rating?.average || 0));
+          }
         } else if (filter === 'new') {
-          filtered = data.filter(p => p.badge === 'New').slice(0, 8);
+          // New: show products with New badge, or recently created if not enough
+          filtered = data.filter(p => p.badge === 'New');
+          if (filtered.length < 5) {
+            filtered = [...data].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+          }
         } else if (filter === 'bestsellers') {
-          filtered = data.sort((a, b) => b.popularity - a.popularity).slice(0, 8);
+          // Bestsellers: sort by popularity
+          filtered = [...data].sort((a, b) => b.popularity - a.popularity);
         } else {
-          filtered = data.slice(0, 8);
+          // Default: show all products
+          filtered = [...data];
         }
+        
+        // Shuffle and take 5 random products
+        filtered = shuffleArray(filtered).slice(0, 5);
         
         // Normalize product fields coming from backend:
         // - images: ensure array

@@ -16,7 +16,10 @@ export async function apiRequest(endpoint, options = {}) {
   if (config.body && typeof config.body === 'object') config.body = JSON.stringify(config.body);
   const res = await fetch(url, config);
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error || `Request failed (${res.status})`);
+  if (!res.ok) {
+    const detail = Array.isArray(data.details) ? `: ${data.details.join('; ')}` : '';
+    throw new Error(data.error ? `${data.error}${detail}` : `Request failed (${res.status})`);
+  }
   return data;
 }
 

@@ -35,15 +35,15 @@ export const createProductSchema = Joi.object({
   discount: Joi.number().min(0).max(100).default(0),
   badge: Joi.string().max(50).allow(null, ''),
   stock: Joi.number().integer().min(0).required(),
-  images: Joi.array().items(Joi.string().uri()).min(1).max(10).required(),
+  images: Joi.array().items(Joi.string().trim().min(3)).min(1).max(10).required(),
   description: Joi.string().min(10).max(2000).required(),
   specs: Joi.object({
-    topNotes: Joi.array().items(Joi.string()).required(),
-    heartNotes: Joi.array().items(Joi.string()).required(),
-    baseNotes: Joi.array().items(Joi.string()).required(),
-    sizeMl: Joi.number().positive().required(),
-    concentration: Joi.string().required()
-  }).required(),
+    topNotes: Joi.array().items(Joi.string().trim()).default([]),
+    heartNotes: Joi.array().items(Joi.string().trim()).default([]),
+    baseNotes: Joi.array().items(Joi.string().trim()).default([]),
+    sizeMl: Joi.number().positive().default(50),
+    concentration: Joi.string().trim().default('EDP')
+  }).default({}),
   rating_average: Joi.number().min(0).max(5).default(0),
   rating_count: Joi.number().integer().min(0).default(0),
   popularity: Joi.number().integer().min(0).default(0)
@@ -57,14 +57,14 @@ export const updateProductSchema = Joi.object({
   discount: Joi.number().min(0).max(100),
   badge: Joi.string().max(50).allow(null, ''),
   stock: Joi.number().integer().min(0),
-  images: Joi.array().items(Joi.string().uri()).min(1).max(10),
+  images: Joi.array().items(Joi.string().trim().min(3)).min(1).max(10),
   description: Joi.string().min(10).max(2000),
   specs: Joi.object({
-    topNotes: Joi.array().items(Joi.string()),
-    heartNotes: Joi.array().items(Joi.string()),
-    baseNotes: Joi.array().items(Joi.string()),
+    topNotes: Joi.array().items(Joi.string().trim()),
+    heartNotes: Joi.array().items(Joi.string().trim()),
+    baseNotes: Joi.array().items(Joi.string().trim()),
     sizeMl: Joi.number().positive(),
-    concentration: Joi.string()
+    concentration: Joi.string().trim()
   }),
   rating_average: Joi.number().min(0).max(5),
   rating_count: Joi.number().integer().min(0),
