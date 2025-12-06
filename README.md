@@ -15,8 +15,8 @@ Concise guide for the MUSK.MH e-commerce stack with a focus on how we secure dat
 ```
 perfume-shop/
  frontends/
-    main/        # Customer site (React, Tailwind v4)
-    admin/       # Admin panel (React, Tailwind v3)
+    main/        # Customer site 
+    admin/       # Admin panel 
  backends/
     api/         # Express API (auth, products, orders, users)
  public/          # Static assets
@@ -35,7 +35,7 @@ Key files:
 ---
 
 ## Security at a Glance (What We Use)
-- **Authentication**: JWT (HS256) with expiration (`JWT_EXPIRES_IN`, default 7d). Token is verified on every protected route.
+- **Authentication**: JWT (HS256) with expiration (`JWT_EXPIRES_IN`, default 1h). Token is verified on every protected route.
 - **Authorization**: Role-based; admin detected server-side (`email === 'admin@admin.com'`) and enforced with `requireAdmin` middleware. No client-side bypass.
 - **Password Security**: bcryptjs hashing with configurable rounds (`BCRYPT_ROUNDS`, default 12). Plaintext is never stored or returned.
 - **Input Validation**: Joi schemas for auth and product/order payloads; rejects malformed or out-of-range data before controllers run.
@@ -150,5 +150,166 @@ VITE_ADMIN_API_URL=http://localhost:6060
 - Keep CORS allowlist tight; verify origins after deploy.
 - Never log or return passwords/tokens; errors stay generic.
 - Use HTTPS in production; rotate secrets if leaked.
+
+---
+
+## Testing the API with Postman
+
+### Base URL
+```
+http://localhost:6060
+```
+
+### 1. Health Check (No Auth Required)
+- **Method:** `GET`
+- **URL:** `http://localhost:6060/`
+- **Expected Response:**
+```json
+{
+  "name": "Product CRUD Service",
+  "status": "OK",
+  "port": 6060,
+  "timestamp": "2025-12-06T..."
+}
+```
+
+### 2. Register Admin User (First Step)
+- **Method:** `POST`
+- **URL:** `http://localhost:6060/auth/register`
+- **Headers:** `Content-Type: application/json`
+- **Body (raw JSON):**
+```json
+{
+  "firstName": "Admin",
+  "lastName": "User",
+  "email": "admin@admin.com",
+  "password": "123456789"
+}
+```
+- **Response:** Returns `{ "token": "...", "user": {...} }`
+- **Note:** Email must be `admin@admin.com` for admin privileges
+
+### 3. Login to Get Token
+- **Method:** `POST`
+- **URL:** `http://localhost:6060/auth/login`
+- **Headers:** `Content-Type: application/json`
+- **Body (raw JSON):**
+```json
+{
+  "email": "admin@admin.com",
+  "password": "123456789"
+}
+```
+- **Response:** `{ "token": "eyJhbGc...", "user": {...} }`
+- **⚠️ Important:** Copy the `token` value for use in protected routes
+
+### 4. List Products (Public - No Auth)
+- **Method:** `GET`
+- **URL:** `http://localhost:6060/products`
+- **Optional Query Params:**
+  - `limit=10` - Number of products to return
+  - `search=dior` - Search in title/brand
+  - `category=1` - Filter by category ID
+  - `minPrice=50&maxPrice=200` - Price range
+- **Example:** `http://localhost:6060/products?limit=10&search=dior`
+
+### 5. Get Single Product (Public - No Auth)
+- **Method:** `GET`
+- **URL:** `http://localhost:6060/products/1`
+- **Response:** Full product details including specs and ratings
+
+### 6. Create Product (Admin Only - Auth Required)
+- **Method:** `POST`
+- **URL:** `http://localhost:6060/products`
+- **Headers:**
+  - `Content-Type: application/json`
+  - `Authorization: Bearer YOUR_TOKEN_HERE` ← Paste token from login
+- **Body (raw JSON):**
+```json
+{
+  "title": "Test Perfume",
+  "brand": "Test Brand",
+  "category_id": 1,
+  "price": 99.99,
+  "stock": 50,
+  "discount": 0,
+  "badge": "New",
+  "images": ["https://example.com/image1.jpg"],
+  "description": "This is a test perfume description with at least 10 characters",
+  "specs": {
+    "topNotes": ["Bergamot", "Lemon"],
+    "heartNotes": ["Jasmine"],
+    "baseNotes": ["Musk"],
+    "sizeMl": 100,
+    "concentration": "EDP"
+  }
+}
+```
+- **Validation Rules:**
+  - `title`: 2-200 chars
+  - `description`: 10-2000 chars
+  - `price`: Must be positive number
+  - `stock`: Integer >= 0
+  - `discount`: 0-100
+  - `images`: Array with at least 1 URL
+  - `category_id`: Positive integer (1-6)
+
+### 7. Update Product (Admin Only - Auth Required)
+- **Method:** `PUT`
+- **URL:** `http://localhost:6060/products/1`
+- **Headers:**
+  - `Content-Type: application/json`
+  - `Authorization: Bearer YOUR_TOKEN_HERE`
+- **Body:** Same structure as create, but all fields are optional
+- **Example (partial update):**
+```json
+{
+  "price": 89.99,
+  "stock": 25,
+  "discount": 15
+}
+```
+
+### 8. Delete Product (Admin Only - Auth Required)
+- **Method:** `DELETE`
+- **URL:** `http://localhost:6060/products/1`
+- **Headers:** `Authorization: Bearer YOUR_TOKEN_HERE`
+- **Response:** `{ "message": "Deleted" }`
+
+### 9. Set Product Promotion (Admin Only - Auth Required)
+- **Method:** `POST`
+- **URL:** `http://localhost:6060/products/1/promo`
+- **Headers:**
+  - `Content-Type: application/json`
+  - `Authorization: Bearer YOUR_TOKEN_HERE`
+- **Body:**
+```json
+{
+  "badge": "Hot Deal",
+  "discount": 25
+}
+```
+
+### Quick Start Testing Flow
+1. **Register** an admin account → Get token from response
+2. **Copy the token** and add to Authorization header: `Bearer <token>`
+3. **Test public routes** (GET /products) without auth
+4. **Test protected routes** (POST/PUT/DELETE) with Authorization header
+5. **Check validation** by sending invalid data (e.g., negative price)
+
+### Common Error Responses
+- **400 Bad Request:** Validation error (check `details` array in response)
+- **401 Unauthorized:** Missing or invalid token
+- **403 Forbidden:** Not an admin user
+- **404 Not Found:** Resource doesn't exist
+- **500 Internal Server Error:** Server/database issue (check backend logs)
+
+### Postman Collection Tips
+- Create environment variables: `baseUrl`, `token`
+- Use `{{baseUrl}}` in requests: `{{baseUrl}}/products`
+- Save token from login response: `pm.environment.set("token", pm.response.json().token)`
+- Auto-add header: `Authorization: Bearer {{token}}`
+
+---
 
 Your site ships with defense-in-depth: hashed credentials, signed tokens, strict validation, locked-down origins, and minimal data exposure.
