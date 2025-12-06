@@ -312,4 +312,43 @@ http://localhost:6060
 
 ---
 
+## API Documentation with Swagger UI
+
+### Access Interactive Swagger Docs
+Once the API server is running, open your browser and navigate to:
+
+```
+http://localhost:6060/api-docs
+```
+
+You'll see an interactive OpenAPI/Swagger interface where you can:
+- **Browse all endpoints** organized by tags (Authentication, Products, Users, Orders)
+- **Try endpoints directly** with the "Try it out" button
+- **See real-time responses** and response codes
+- **View request/response schemas** with all validation rules
+- **Auto-fill Bearer token** for auth-protected routes
+
+### Swagger Features
+- **Schema definitions**: See exact data structures expected/returned
+- **Authorization**: Click "Authorize" to paste your JWT token for protected routes
+- **Parameter validation**: Visual guidance on required fields, types, and constraints
+- **Error responses**: All HTTP status codes (200, 400, 401, 403, 404, 500) documented
+
+### Example: Testing Create Product via Swagger
+1. Open `http://localhost:6060/api-docs`
+2. Find **POST /products** under the Products section
+3. Click "Try it out"
+4. Click "Authorize" and paste your JWT token from login
+5. Fill in the request body with product details
+6. Click "Execute" to see the response
+
+### Swagger Files
+- **Spec**: `backends/api/swagger.js` — OpenAPI definition (info, servers, schemas)
+- **Routes**: `backends/api/routes/*.js` — JSDoc comments for each endpoint
+- **UI**: Persists authorization token and lists endpoints in expanded view
+
+This provides a **self-documenting API** that developers can use to understand and test all endpoints without external tools.
+
+---
+
 Your site ships with defense-in-depth: hashed credentials, signed tokens, strict validation, locked-down origins, and minimal data exposure.
